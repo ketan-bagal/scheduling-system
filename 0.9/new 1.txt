@@ -1,0 +1,17 @@
+function() {var day=$(this).attr("data-day");var month=$(this).attr("data-month");var year=$(this)<h1 id="date">
+ssss</h1>
+<button></button>
+<script>
+function getUrlVars() {
+var vars = {};
+var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+vars[key] = value;
+});
+return vars;
+}
+var day = getUrlVars()["day"];
+var month = getUrlVars()["month"];
+var year = getUrlVars()["year"];
+var date= document.getElementById("date");
+date.innerHtml = day +"/"+month+"/"+year;
+</script>

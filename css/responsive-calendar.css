@@ -1,0 +1,144 @@
+.controls{
+    
+    width:100%;
+    border-top:4px solid lightgray;
+}
+.controls .pull-left{
+    
+    float:left;
+    margin-left:0;
+    width:5%;
+}
+ 
+.controls .pull-right{
+    float:left;
+    
+    width:5%;
+    
+}
+
+
+.responsive-calendar .controls {
+  text-align: center;
+}
+.responsive-calendar .controls a {
+  cursor: pointer;
+}
+.responsive-calendar .controls h4 {
+  display: inline;
+}
+.responsive-calendar .day-headers, 
+.responsive-calendar .days {
+  font-size: 30px;
+}
+
+.responsive-calendar .day-headers{
+    width:100%;
+}
+ 
+.responsive-calendar .day-headers .dayHeader{
+    
+    color:grey;
+    display:inline;
+    float:left;
+    width:14.285714285714286%;
+    text-align:center;
+    border-bottom:2px solid lightgray;
+}
+
+.responsive-calendar .day {
+  display: inline-block;
+  position: relative;
+  font-size: 14px;
+  width: 14.285714285714286%;
+  text-align: center;
+}
+.responsive-calendar .day a {
+  color: #000000;
+  display: block;
+  cursor: pointer;
+  padding: 20% 0 20% 0;
+}
+.responsive-calendar .day a:hover {
+  background-color: #eee;
+  text-decoration: none;
+}
+.responsive-calendar .day.header {
+  border-bottom: 2px gray solid;
+}
+.responsive-calendar .day.active a {
+  background-color: #1d86c8;
+  color: #ffffff;
+}
+.responsive-calendar .day.active a:hover {
+  background-color: #36a0e2;
+}
+.responsive-calendar .day.active .not-current {
+  background-color: #8fcaef;
+  color: #ffffff;
+}
+.responsive-calendar .day.active .not-current:hover {
+  background-color: #bcdff5;
+}
+.responsive-calendar .day.not-current a {
+  color: #ddd;
+}
+.responsive-calendar .day .badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 1;
+}
+
+.tt {
+  
+}
+
+.tt-content {
+    opacity: 0;
+    visibility: hidden;     
+    font: 12px Arial, Helvetica;
+    text-align: center;
+    border-color: #aaa #555 #555 #aaa;
+    border-style: solid;
+    border-width: 1px;
+    width: 150px;
+    padding: 15px;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -76px;    
+    background-color: #fff;
+    background-image: linear-gradient(rgba(0,0,0,.1), rgba(255,255,255,0));     
+    box-shadow: 1px 1px 0 #555,
+                2px 2px 0 #555,
+                3px 3px 1px rgba(0, 0, 0, .3),
+                0   1px 0   rgba(255,255,255, .5) inset;                    
+    transition: bottom .2s ease, opacity .2s ease;                  
+    }
+    
+.tt-content:after,
+.tt-content:before {
+    border-right: 16px solid transparent;
+    border-top: 15px solid #fff;
+    bottom: -15px;
+    content: "";
+    position: absolute;
+    left: 50%;
+    margin-left: -10px;
+}
+
+.tt-content:before {
+    border-right-width: 25px;
+    border-top-color: #555;
+    border-top-width: 15px;
+    bottom: -15px;
+}
+
+.tt:hover .tt-content{
+    opacity: 1;
+    visibility: visible;
+    bottom: 30px;       
+}
+
+
