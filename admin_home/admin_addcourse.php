@@ -69,7 +69,7 @@
 			var flag;
 			var d = 5000;
 
-			var courseid = document.forms["form1"]["courseid"].value;
+			var courseid = document.forms["form1"]["courseid"].value.trim();
 			if (courseid == null || courseid == "")
 			{
 				d += 500;
@@ -77,7 +77,7 @@
 				alertify.log("Course code is required");
 				flag=false;
 			}
-			var coursename = document.forms["form1"]["coursename"].value;
+			var coursename = document.forms["form1"]["coursename"].value.trim();
 			if (coursename == null || coursename == "")
 			{
 				d += 500;
@@ -85,7 +85,7 @@
 				alertify.log("Coursename is required");
 				flag=false;
 			}
-			var programmeid = document.forms["form1"]["programmeid"].value;
+			var programmeid = document.forms["form1"]["programmeid"].value.trim();
 			if (programmeid == null || programmeid == "")
 			{
 				d += 500;
@@ -93,7 +93,16 @@
 				alertify.log("Programme is required");
 				flag=false;
 			}
-			var credits = document.forms["form1"]["credits"].value;
+			var dyear = document.forms["form1"]["duryear"].value.trim();
+			var dweek = document.forms["form1"]["durweek"].value.trim();
+			if (dyear == 0 && dweek == 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course duration is required");
+				flag=false;
+			}
+			var credits = document.forms["form1"]["credits"].value.trim();
 			if (credits == null || credits == "")
 			{
 				d += 500;
@@ -101,7 +110,7 @@
 				alertify.log("Credits is required");
 				flag=false;
 			}
-			var level = document.forms["form1"]["level"].value;
+			var level = document.forms["form1"]["level"].value.trim();
 			if (level == null || level == "")
 			{
 				d += 500;
