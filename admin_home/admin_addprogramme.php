@@ -70,7 +70,7 @@
 			var flag;
 			var d = 5000;
 
-			var schoolid = document.forms["form1"]["schoolid"].value;
+			var schoolid = document.forms["form1"]["schoolid"].value.trim();
 			if (schoolid == null || schoolid == "")
 			{
 				d += 500;
@@ -78,7 +78,7 @@
 				alertify.log("School is required");
 				flag=false;
 			}
-			var programmename = document.forms["form1"]["programmename"].value;
+			var programmename = document.forms["form1"]["programmename"].value.trim();
 			if (programmename == null || programmename == "")
 			{
 				d += 500;
@@ -86,7 +86,24 @@
 				alertify.log("Programme name is required");
 				flag=false;
 			}
-			var credits = document.forms["form1"]["credits"].value;
+			var classDur = document.forms["form1"]["classdur"].value.trim();
+			if (classDur == null || classDur == 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("The class duration is required");
+				flag=false;
+			}
+			var dyear = document.forms["form1"]["duryear"].value.trim();
+			var dweek = document.forms["form1"]["durweek"].value.trim();
+			if (dyear == 0 && dweek == 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Programme duration is required");
+				flag=false;
+			}
+			var credits = document.forms["form1"]["credits"].value.trim();
 			if (credits == null || credits == "")
 			{
 				d += 500;
