@@ -70,7 +70,7 @@
 			var flag;
 			var d = 5000;
 
-			var schoolid = document.forms["form1"]["schoolid"].value;
+			var schoolid = document.forms["form1"]["schoolid"].value.trim();
 			if (schoolid == null || schoolid == "")
 			{
 				d += 500;
@@ -103,7 +103,7 @@
 				alertify.log("Programme duration is required");
 				flag=false;
 			}
-			var credits = document.forms["form1"]["credits"].value;
+			var credits = document.forms["form1"]["credits"].value.trim();
 			if (credits == null || credits == "")
 			{
 				d += 500;
