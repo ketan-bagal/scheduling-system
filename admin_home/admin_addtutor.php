@@ -129,7 +129,7 @@ if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit
 				flag=false;
 			}else{
 				Lname = Lname.trim();
-				var patt = new RegExp("^[A-Za-z]+$");
+				var patt = new RegExp("^[A-Za-z ]+$");
 				if(!patt.test(Lname)){
 					alertify.log("Last name format is not correct");
 					flag=false;
