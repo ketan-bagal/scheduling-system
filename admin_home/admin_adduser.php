@@ -105,6 +105,13 @@ else {echo "<input type='submit' name='new' value='submit'>";}
 				alertify.set({ delay: d });
 				alertify.log("Username is required");
 				flag=false;
+			}else{
+				var patt = new RegExp("^[a-z0-9_-]{3,15}$");
+				if(!patt.test(userid)){
+					alertify.log("Username format is not correct");
+					flag=false;
+				}
+				
 			}
 			var email = document.forms["form1"]["email"].value;
 			if (email == null || email == "")
