@@ -104,21 +104,36 @@ if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit
 			var flag;
 			var d = 5000;
 
-			var buildingname = document.forms["container"]["firstname"].value;
-			if (buildingname == null || buildingname == "")
+			var Fname = document.forms["container"]["firstname"].value;
+			if (Fname == null || Fname == "")
 			{
 				d += 500;
 				alertify.set({ delay: d });
 				alertify.log("First name is required");
 				flag=false;
+			}else{
+				 Fname = Fname.trim();
+				var patt = new RegExp("^[A-Za-z ]+$");
+				if(!patt.test(Fname)){
+					alertify.log("First name format is not correct");
+					flag=false;
+				}
+				
 			}
-			var campusid = document.forms["container"]["lastname"].value;
-			if (campusid == null || campusid == "")
+			var Lname = document.forms["container"]["lastname"].value;
+			if (Lname == null || Lname == "")
 			{
 				d += 500;
 				alertify.set({ delay: d });
 				alertify.log("Last name is required");
 				flag=false;
+			}else{
+				Lname = Lname.trim();
+				var patt = new RegExp("^[A-Za-z ]+$");
+				if(!patt.test(Lname)){
+					alertify.log("Last name format is not correct");
+					flag=false;
+				}
 			}
 			var email = document.forms["container"]["email"].value;
 			 
