@@ -112,9 +112,10 @@ if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit
 				alertify.log("First name is required");
 				flag=false;
 			}else{
-				var patt = new RegExp("^[A-Za-z]+$");
+				 Fname = Fname.trim();
+				var patt = new RegExp("^[A-Za-z ]+$");
 				if(!patt.test(Fname)){
-					alertify.log("Username format is not correct");
+					alertify.log("First name format is not correct");
 					flag=false;
 				}
 				
@@ -127,9 +128,10 @@ if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit
 				alertify.log("Last name is required");
 				flag=false;
 			}else{
+				Lname = Lname.trim();
 				var patt = new RegExp("^[A-Za-z]+$");
-				if(!patt.test(Fname)){
-					alertify.log("Username format is not correct");
+				if(!patt.test(Lname)){
+					alertify.log("Last name format is not correct");
 					flag=false;
 				}
 			}
