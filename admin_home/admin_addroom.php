@@ -287,7 +287,7 @@ $sql="SELECT * FROM building";
 $result = mysqli_query($conn,$sql);
 
 echo "
-<select name='buildingid' id='buildingid' onchange='changeBuildingOptions(this.value)'>";
+<select name='buildingid' id='buildingid'>";
 echo "<option value='' hidden selected>Select a building</option>";
 while($row = mysqli_fetch_array($result)) {
 	$currentbid = $row['buildingid'];
