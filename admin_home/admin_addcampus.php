@@ -101,6 +101,13 @@ else {echo "<input type='submit' name='new' value='submit'>";}?>
 				alertify.set({ delay: d });
 				alertify.log("campus name is required");
 				flag=false;
+			}else{
+				campusname = campusname.trim();
+				var patt = new RegExp("^[A-Za-z ]+$");
+				if(!patt.test(campusname)){
+					alertify.log("Campus name format is not correct");
+					flag=false;
+				}
 			}
 			var address = document.forms["form1"]["address"].value;
 			if (address == null || address == "")
