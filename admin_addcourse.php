@@ -64,6 +64,12 @@
 			</div>
 </div>
 <script>
+	function hasSpecialChar(str)
+	{
+		var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/);
+		return pattern.test(str);
+	}
+
 	$("#form1").on('submit', function ()
 		{
 			var flag;
@@ -77,6 +83,14 @@
 				alertify.log("Course code is required");
 				flag=false;
 			}
+			else if (hasSpecialChar(courseid))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course id has special characters");
+				flag=false;
+			}
+			
 			var coursename = document.forms["form1"]["coursename"].value.trim();
 			if (coursename == null || coursename == "")
 			{
@@ -85,6 +99,14 @@
 				alertify.log("Coursename is required");
 				flag=false;
 			}
+			else if (hasSpecialChar(coursename))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course name has special characters");
+				flag=false;
+			}
+			
 			var programmeid = document.forms["form1"]["programmeid"].value.trim();
 			if (programmeid == null || programmeid == "")
 			{
@@ -93,6 +115,7 @@
 				alertify.log("Programme is required");
 				flag=false;
 			}
+			
 			var dyear = document.forms["form1"]["duryear"].value.trim();
 			var dweek = document.forms["form1"]["durweek"].value.trim();
 			if (dyear == 0 && dweek == 0)
@@ -102,6 +125,7 @@
 				alertify.log("course duration is required");
 				flag=false;
 			}
+			
 			var credits = document.forms["form1"]["credits"].value.trim();
 			if (credits == null || credits == "")
 			{
@@ -110,6 +134,21 @@
 				alertify.log("Credits is required");
 				flag=false;
 			}
+			else if(hasSpecialChar(credits))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Credits has special characters");
+				flag=false;
+			}
+			else if (credits < 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Credits cannot be negative");
+				flag=false;
+			}
+		
 			var level = document.forms["form1"]["level"].value.trim();
 			if (level == null || level == "")
 			{
