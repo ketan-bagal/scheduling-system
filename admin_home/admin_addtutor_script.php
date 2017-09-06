@@ -14,6 +14,17 @@
  //adding new
 	if(isset($_POST['new']))
 	{
+		
+		$firstname=trim($firstname," ");
+		$lastname=trim($lastname," ");
+		$email=trim($email," ");
+		//Regex exper=new Regex(@"\s+");
+		//var re = /^([a-zA-Z0-9]+\s)*[a-zA-Z0-9]+$/;
+		
+		$pattern = '/\s{2,}/i';
+		$replacement = ' ';
+		$firstname = preg_replace($pattern, $replacement, $firstname);
+		$lastname = preg_replace($pattern, $replacement, $lastname);
 	$result = "INSERT INTO tutor(lastname,firstname,email)
 				VALUES ('$lastname','$firstname','$email')";
 		
@@ -25,6 +36,7 @@
 	}
 	else{
 		$_SESSION['error'] = "Failed to add tutor.";
+		
 		header('location:./admin_addtutor.php');
 		exit();
 	}
@@ -43,6 +55,7 @@
 	else{
 		$_SESSION['errorid'] = $updatingid;
 		$_SESSION['error'] = "Failed to edit Tutor.";
+		
 		header('location:./admin_addtutor.php');
 		exit();
 	}
