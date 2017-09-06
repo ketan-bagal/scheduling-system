@@ -32,7 +32,7 @@ if($cnt >= 1)
 	$password = sha1($password);
 	$result = "INSERT INTO user(usertype,userid,password,email)
 				VALUES ('$usertype','$userid','$password','$email')";
-		
+
 		if ($runquery = $conn->query($result))
 	{
 	$_SESSION['error'] = "User added successfully.";
@@ -42,7 +42,8 @@ if($cnt >= 1)
 	else{
 		$_SESSION['errorid'] = $userid;
 		$_SESSION['error'] = "Failed to add user.";
-		header('location:./admin_adduser.php');
+		echo mysqli_error($conn);
+		//header('location:./admin_adduser.php');
 		exit();
 	}
 	}

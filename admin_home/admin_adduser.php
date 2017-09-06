@@ -106,9 +106,9 @@ else {echo "<input type='submit' name='new' value='submit'>";}
 				alertify.log("Username is required");
 				flag=false;
 			}else{
-				var patt = new RegExp("^[a-z0-9_-]{3,15}$");
+				var patt = new RegExp("^[A-Za-z0-9_-]{3,15}$");
 				if(!patt.test(userid)){
-					alertify.log("Username format is not correct");
+					alertify.log("Username format is not correct.(letters,number,dash and underscore are allowed.)");
 					flag=false;
 				}
 				
