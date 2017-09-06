@@ -105,13 +105,20 @@ if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit
 			var flag;
 			var d = 5000;
 
-			var buildingname = document.forms["container"]["holidayname"].value;
-			if (buildingname == null || buildingname == "")
+			var holidayname = document.forms["container"]["holidayname"].value;
+			if (holidayname == null || holidayname == "")
 			{
 				d += 500;
 				alertify.set({ delay: d });
 				alertify.log("Holiday name is required");
 				flag=false;
+			}else{
+				holidayname = holidayname.trim();
+				var patt = new RegExp("^[A-Za-z0-9_-]+$");
+				if(!patt.test(holidayname)){
+					alertify.log("Holiday name format is not correct");
+					flag=false;
+				}
 			}
 			var campusid = document.forms["container"]["holidaydate"].value;
 			if (campusid == null || campusid == "")
