@@ -65,11 +65,18 @@
 			</div>
 </div>
 <script>
+	function hasSpecialChar(str)
+	{
+		var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/);
+		return pattern.test(str);
+	}
+
 	$("#form1").on('submit', function ()
 		{
 			var flag;
 			var d = 5000;
 
+			var schoolid1 = document.forms["form1"]["schoolid"].value;
 			var schoolid = document.forms["form1"]["schoolid"].value.trim();
 			if (schoolid == null || schoolid == "")
 			{
@@ -78,6 +85,7 @@
 				alertify.log("School is required");
 				flag=false;
 			}
+			
 			var programmename = document.forms["form1"]["programmename"].value.trim();
 			if (programmename == null || programmename == "")
 			{
@@ -86,6 +94,14 @@
 				alertify.log("Programme name is required");
 				flag=false;
 			}
+			else if (hasSpecialChar(programmename))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("programme name has special characters");
+				flag=false;
+			}
+			
 			var classDur = document.forms["form1"]["classdur"].value.trim();
 			if (classDur == null || classDur == 0)
 			{
@@ -94,6 +110,16 @@
 				alertify.log("The class duration is required");
 				flag=false;
 			}
+			
+			var semesters = document.forms["form1"]["semesters"].value.trim();
+			if (semesters == null || semesters == 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("semester is required");
+				flag=false;
+			}
+			
 			var dyear = document.forms["form1"]["duryear"].value.trim();
 			var dweek = document.forms["form1"]["durweek"].value.trim();
 			if (dyear == 0 && dweek == 0)
@@ -103,12 +129,27 @@
 				alertify.log("Programme duration is required");
 				flag=false;
 			}
+			
 			var credits = document.forms["form1"]["credits"].value.trim();
 			if (credits == null || credits == "")
 			{
 				d += 500;
 				alertify.set({ delay: d });
 				alertify.log("Credits is required");
+				flag=false;
+			}
+			else if (hasSpecialChar(credits))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("credits has special characters");
+				flag=false;
+			}
+			else if (credits < 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Credits cannot be less than 0");
 				flag=false;
 			}
 			return flag;
