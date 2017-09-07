@@ -152,6 +152,15 @@
 				alertify.log("Credits cannot be less than 0");
 				flag=false;
 			}
+			
+			var level = document.forms["form1"]["level"].value.trim();
+			if (level == null || level == 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Programme level is required");
+				flag=false;
+			}
 			return flag;
 		});
 		</script>
