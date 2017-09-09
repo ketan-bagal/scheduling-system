@@ -45,7 +45,7 @@
 								echo "<option value='' hidden selected>Select a programme</option>";
 								while($row = mysqli_fetch_array($result)) {
 									$currentbid = $row['programmeid'];
-									echo "<option value=".$currentbid; if(isset($schoolid)) {if($schoolid==$currentbid) {echo " selected";}} echo ">" .$row['name']."</option>";
+									echo "<option data-duration=".$row['duration']; " value=".$currentbid; if(isset($schoolid)) {if($schoolid==$currentbid) {echo " selected";}} echo ">" .$row['name']."</option>";
 								}
 								echo "</select>";
 								mysqli_close($conn);
@@ -64,12 +64,26 @@
 			</div>
 </div>
 <script>
+	function hasSpecialChar(str)
+	{
+		var pattern = new RegExp(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/);
+		return pattern.test(str);
+	}
+	
+	var programmeDuration=0;
+	
+	$(document).ready(function() {
+		$('#programmeid').change(function() {
+			programmeDuration = $('#programmeid').find(':selected').attr('data-duration');
+		});
+	});
+
 	$("#form1").on('submit', function ()
 		{
 			var flag;
 			var d = 5000;
 
-			var courseid = document.forms["form1"]["courseid"].value;
+			var courseid = document.forms["form1"]["courseid"].value.trim();
 			if (courseid == null || courseid == "")
 			{
 				d += 500;
@@ -77,7 +91,15 @@
 				alertify.log("Course code is required");
 				flag=false;
 			}
-			var coursename = document.forms["form1"]["coursename"].value;
+			else if (hasSpecialChar(courseid))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course id has special characters");
+				flag=false;
+			}
+			
+			var coursename = document.forms["form1"]["coursename"].value.trim();
 			if (coursename == null || coursename == "")
 			{
 				d += 500;
@@ -85,7 +107,15 @@
 				alertify.log("Coursename is required");
 				flag=false;
 			}
-			var programmeid = document.forms["form1"]["programmeid"].value;
+			else if (hasSpecialChar(coursename))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course name has special characters");
+				flag=false;
+			}
+			
+			var programmeid = document.forms["form1"]["programmeid"].value.trim();
 			if (programmeid == null || programmeid == "")
 			{
 				d += 500;
@@ -93,7 +123,49 @@
 				alertify.log("Programme is required");
 				flag=false;
 			}
-			var credits = document.forms["form1"]["credits"].value;
+			else
+			{
+				
+			var dyear = document.forms["form1"]["duryear"].value.trim();
+			var dweek = document.forms["form1"]["durweek"].value.trim();
+			
+			if(!dyear)
+			{
+				dyear = 0;
+			}
+			
+			if(!dweek)
+			{
+				dweek = 0;
+			}
+			
+			dyear = parseInt(dyear);
+			dweek = parseInt(dweek);
+			
+			var courseDuration = dyear * 52 + dweek;
+			
+			if (dyear == 0 && dweek == 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course duration is required");
+				flag=false;
+			}
+			else if(courseDuration > programmeDuration)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("course duration cannot be longer than the programme duration (" + programmeDuration + " weeks)");
+				flag=false;
+			}
+			
+			}
+			
+		
+			
+			
+			
+			var credits = document.forms["form1"]["credits"].value.trim();
 			if (credits == null || credits == "")
 			{
 				d += 500;
@@ -101,8 +173,23 @@
 				alertify.log("Credits is required");
 				flag=false;
 			}
-			var level = document.forms["form1"]["level"].value;
-			if (level == null || level == "")
+			else if(hasSpecialChar(credits))
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Credits has special characters");
+				flag=false;
+			}
+			else if (credits < 0)
+			{
+				d += 500;
+				alertify.set({ delay: d });
+				alertify.log("Credits cannot be negative");
+				flag=false;
+			}
+		
+			var level = document.forms["form1"]["level"].value.trim();
+			if (level == null || level == 0)
 			{
 				d += 500;
 				alertify.set({ delay: d });
