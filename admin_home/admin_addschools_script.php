@@ -12,7 +12,10 @@
 	//adding new
 	if(isset($_POST['submit']))
 	{
-	
+	$schoolname=trim($schoolname," ");
+		$pattern = '/\s{2,}/i';
+		$replacement = ' ';
+		$schoolname = preg_replace($pattern, $replacement, $schoolname);
 	$result = "INSERT INTO school(name)
 				VALUES ('$schoolname')";
 		
@@ -32,6 +35,7 @@
 	//editing
 	if(isset($_POST['new']))
 	{
+		
 	$result = "UPDATE school SET schoolname='$schoolname' WHERE schoolid='$updatingid'";
 		
 		if ($runquery = $conn->query($result))

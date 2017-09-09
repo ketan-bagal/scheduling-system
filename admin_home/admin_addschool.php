@@ -55,6 +55,13 @@
 				alertify.set({ delay: d });
 				alertify.log("School name is required");
 				flag=false;
+			}else{
+				schoolname = schoolname.trim();
+				var patt = new RegExp("^[A-Za-z ]+$");
+				if(!patt.test(schoolname)){
+					alertify.log("School name format is not correct");
+					flag=false;
+				}
 			}
 			return flag;
 		});
