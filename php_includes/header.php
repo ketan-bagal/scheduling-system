@@ -16,11 +16,11 @@ else
 <?php
 if($_SESSION["usertype"]==1)
 {
-echo "<a href='../admin_home/admin_viewganttchart.php' >";
+echo "<a href='../user_home/editprofile.php' >";
 }
 else
 {
-	echo "<a href='../user_home/user_home.php' >";
+	echo "<a href='../user_home/editprofile.php' >";
 }
 ?>
 <button class="show_bt user_home"type="button" name="button"><?php echo $_SESSION["userid"];?></button>
