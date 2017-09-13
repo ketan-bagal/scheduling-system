@@ -7,7 +7,12 @@
 		{
 		if($_SESSION["usertype"]==1)
 		{
-		echo "<li><a href='../admin_home/admin_edituser.php' class='hvr-back-pulse'>User</a></li>";
+		echo "<li><div class='dropdown'>
+			<a href='../admin_home/admin_edituser.php' class='hvr-back-pulse'><span>User</span></a>
+			<div class='dropdown-content'>
+			<a href='../admin_home/admin_manageuser.php' class='hvr-back-pulse'><span class='dropbtn'>Manage User</span></a>
+			</div>
+			</div></li>";
 		echo "<li><div class='dropdown'>
   <a href='../admin_home/admin_editroom.php' class='hvr-back-pulse'><span >Room</span></a>
   <div class='dropdown-content'>
