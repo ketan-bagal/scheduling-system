@@ -141,13 +141,12 @@ if(isset($_GET['buildingid']))
 include '../php_script/connectDB.php';
 $sql="SELECT * FROM campus";
 $result = mysqli_query($conn,$sql);
-
+echo $_SESSION['campusid'];
 echo "<label for='campusid'>Campus: </label>
 <select id='campusid' name='campusid' onchange='search(this.value,0)'>";
 echo "<option hidden>Any</option>";
 while($row = mysqli_fetch_array($result)) {
 	$campusid = $row['campusid'];
-
 	echo "<option value='".$campusid."'"; if(isset($_SESSION['campusid'])) {if($_SESSION['campusid']==$campusid) {echo " selected";}} echo ">" .$row['campusname']."</option>";
 }
 echo "</select>";
@@ -158,14 +157,17 @@ mysqli_close($conn);
 <div class = "margin_left">
 <?php
 include '../php_script/connectDB.php';
-$sql="SELECT * FROM building";
+if (isset($_SESSION['campusid'])) {
+	$sql="SELECT * FROM building WHERE campusid='".$_SESSION['campusid']."'";
+}else {
+	$sql="SELECT * FROM building";
+}
 $result = mysqli_query($conn,$sql);
 echo "<label for='buildingid'>Building: </label>
 <select name='buildingid' id='buildingid' onchange='search(this.value,1)'>";
 echo "<option hidden>Select a building</option>";
 while($row = mysqli_fetch_array($result)) {
 	$buildingid = $row['buildingid'];
-
 	echo "<option value='".$buildingid."'"; if(isset($_SESSION['buildingid'])) {if($_SESSION['buildingid']==$buildingid) {echo " selected";}} echo ">" .$row['buildingname']."</option>";
 }
 echo "</select>";
@@ -179,8 +181,18 @@ mysqli_close($conn);
 <br><br>
 <script>
 
-
-/*function changeOptions(campusid) {
+<?php
+if(isset($_GET['campusid']))
+{
+	$jsonid = json_encode($_GET['campusid']);
+	echo "var campusid = ".$jsonid.";\n";
+}
+else
+{
+	echo "var campusid=null;\n";
+}
+?>
+function changeOptions(campusid) {
             // code for IE7+, Firefox, Chrome, Opera, Safari
 
         xmlhttp = new XMLHttpRequest();
@@ -193,7 +205,11 @@ mysqli_close($conn);
         xmlhttp.open("GET","../php_script/getbuildingform_script.php?campusid="+campusid,true);
         xmlhttp.send();
     }
-*/
+		if(campusid!=null)
+		{
+
+			changeOptions(campusid);
+		}
 	function filterCapacity(value) {
 
 		window.location.href = "./admin_editroom.php?capacity=" + value;
