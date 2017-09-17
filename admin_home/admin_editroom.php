@@ -141,7 +141,7 @@ if(isset($_GET['buildingid']))
 include '../php_script/connectDB.php';
 $sql="SELECT * FROM campus";
 $result = mysqli_query($conn,$sql);
-echo $_SESSION['campusid'];
+
 echo "<label for='campusid'>Campus: </label>
 <select id='campusid' name='campusid' onchange='search(this.value,0)'>";
 echo "<option hidden>Any</option>";
