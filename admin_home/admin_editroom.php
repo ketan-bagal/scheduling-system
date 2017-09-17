@@ -132,6 +132,7 @@ if($cnt >= 1)
 if(isset($_GET['campusid']))
 {
 	$_SESSION['campusid']=$_GET['campusid'];
+	$currentcampusid = $_SESSION['campusid'];
 	unset($_SESSION['buildingid']);
 }
 if(isset($_GET['buildingid']))
@@ -144,7 +145,7 @@ $result = mysqli_query($conn,$sql);
 
 echo "<label for='campusid'>Campus: </label>
 <select id='campusid' name='campusid' onchange='search(this.value,0)'>";
-echo "<option hidden>Any</option>";
+echo "<option >Any</option>";
 while($row = mysqli_fetch_array($result)) {
 	$campusid = $row['campusid'];
 	echo "<option value='".$campusid."'"; if(isset($_SESSION['campusid'])) {if($_SESSION['campusid']==$campusid) {echo " selected";}} echo ">" .$row['campusname']."</option>";
@@ -157,7 +158,7 @@ mysqli_close($conn);
 <div class = "margin_left">
 <?php
 include '../php_script/connectDB.php';
-if (isset($_SESSION['campusid'])) {
+if (isset($_SESSION['campusid']) && $_SESSION['campusid'] != "Any") {
 	$sql="SELECT * FROM building WHERE campusid='".$_SESSION['campusid']."'";
 }else {
 	$sql="SELECT * FROM building";
@@ -174,8 +175,8 @@ echo "</select>";
 mysqli_close($conn);
 ?>
 
-<label>Capacity (More than)</label>
-<input type="text" id="capacity" onchange="filterCapacity(this.value)" />
+<!-- <label>Capacity (More than)</label>
+<input type="text" id="capacity" onchange="filterCapacity(this.value)" /> -->
 
 </div>
 <br><br>
@@ -238,6 +239,7 @@ function changeOptions(campusid) {
 			if(isset($_SESSION['buildingid']))
 			{
 				$buildingid = $_SESSION['buildingid'];
+				unset($_SESSION['buildingid']);
 			if(isset($_GET['capacity']))
 			{
 				$capacity = $_GET['capacity'];
