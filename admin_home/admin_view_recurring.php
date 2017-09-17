@@ -80,7 +80,7 @@ $("#container").on('submit', function ()
 				alertify.log("startdate is required");
 				flag=false;
 			}
-			var temp = new Date(startdate);
+			*/var temp = new Date(startdate);
 			temp = temp.getDay();
 			if (temp != 1) 
 			{
@@ -88,7 +88,7 @@ $("#container").on('submit', function ()
 				alertify.set({ delay: d });
 				alertify.log("startweek muust start from monday");
 				flag=false;
-			}
+			}*/
 			
 			
 			var course = document.forms["container"]["cohort"].value;
