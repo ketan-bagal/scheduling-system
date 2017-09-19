@@ -287,7 +287,7 @@ $sql="SELECT * FROM building";
 $result = mysqli_query($conn,$sql);
 
 echo "
-<select name='buildingid' id='buildingid' onchange='changeBuildingOptions(this.value)'>";
+<select name='buildingid' id='buildingid'>";
 echo "<option value='' hidden selected>Select a building</option>";
 while($row = mysqli_fetch_array($result)) {
 	$currentbid = $row['buildingid'];
@@ -356,6 +356,13 @@ if(isset($_SESSION["addingfailid"]))
 				alertify.set({ delay: d });
 				alertify.log("room name is required");
 				flag=false;
+			}else{
+				var patt = new RegExp("^[a-z0-9_-]{3,15}$");
+				if(!patt.test(roomname)){
+					alertify.log("Roomname format is not correct");
+					flag=false;
+				}
+
 			}
 			/*var roomtype = document.forms["container"]["roomtype"].value;
 			if (roomtype == null || roomtype == "")
