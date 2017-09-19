@@ -25,9 +25,13 @@ if(isset($_GET['submit']))
 {
 	
 	$_SESSION["startdate"] = $_GET["startdate"];
+	
+	
+
 	if($_GET["campusid"]=="Select a campus")
-	{$_GET["campusid"] = "Any";
-}
+	{
+		$_GET["campusid"] = "Any";
+	}
 	$_SESSION["campusid"] = $_GET["campusid"];
 	if(isset($_GET["mon"]))
 	{
@@ -86,7 +90,7 @@ if(isset($_GET['submit']))
 		$_SESSION["startdate"] = $_GET['change'];
 		$_SESSION["moreDays"]=0;
 	}
-	$moreDays = 12;
+	$moreDays = 26;
 	if(isset($_GET['more']))
 	{
 		$_SESSION["moreDays"] += 14;
@@ -94,11 +98,48 @@ if(isset($_GET['submit']))
 		unset($_GET['more']);
 		
 	}
+
+	$checkMon = strtotime($_SESSION["startdate"]);
+	if(date('l',$checkMon) !== 'Monday')
+	{
+		$_SESSION["startdate"] = date('Y-m-d', strtotime('previous monday', strtotime($_SESSION["startdate"])));
+	}
+
+
+
+if(isset($_GET["moveMonth"]))
+	{
+		if($_GET["moveMonth"] == 1)
+		{
+			$_SESSION["startdate"] = DateTime::createFromFormat('Y-m-d',$_SESSION["startdate"]);
+			$_SESSION["startdate"]->modify('-1 month');
+			$_SESSION["startdate"] = $_SESSION["startdate"]->format('Y-m-d');
+			
+		}
+		else
+		{
+			$_SESSION["startdate"] = DateTime::createFromFormat('Y-m-d',$_SESSION["startdate"]);
+			$_SESSION["startdate"]->modify('+1 month');
+			$_SESSION["startdate"] = $_SESSION["startdate"]->format('Y-m-d');
+			
+		}
+		unset($_GET["moveMonth"]);
+	}
+
+$startdate = DateTime::createFromFormat('Y-m-d',$_SESSION["startdate"]);
+
+
 	
-	$startdate = $_SESSION["startdate"];
-	$_SESSION["enddate"] = date('Y-m-d', strtotime($startdate. ' + '.$moreDays.' days'));
+	
+
+	
+	$_SESSION["enddate"] = DateTime::createFromFormat('Y-m-d',$startdate->format('Y-m-d'));
+	$_SESSION["enddate"]->modify('+'.$moreDays.' day');
 	$enddate = $_SESSION["enddate"];
 	
+	
+	$startdate = $startdate->format('Y-m-d');
+	$enddate = $enddate->format('Y-m-d');
 	$mon = $_SESSION["mon"];
 	$tue = $_SESSION["tue"];
 	$wed = $_SESSION["wed"];
@@ -125,7 +166,7 @@ if(isset($_GET['submit']))
 			<?php include '../php_includes/header.php'; ?>
 			<?php include '../php_includes/nav.php'; ?>
 			<div class="col-6 col-m-9 content">
-				<h1>view Booking</h1>	
+				<h1>view Booking</h1>
 			<div id="date">
 			<h2>
 <?php
@@ -141,7 +182,9 @@ $dd = preg_split("/\-/",$enddate);
 
 <label for='startdate'>Start Week:</label>
 <input type="date" id="startdate" name="startdate" value="" onchange="loadNew()" /><br />
-<button type="button" id="next" onclick="loadMore()" >Load two weeks more</button>
+
+<button type="button" onclick="previousMonth()" >Previous month</button><br />
+<button type="button" onclick="nextMonth()" >Next month</button><br />
 </div>
 
 <div id='error'>
@@ -309,7 +352,7 @@ function changeOptions(campusid) {
 		{
 			while($row = $runquery2->fetch_assoc())
 			{
-				
+				/*
 				if($row["roomtype"]==1)
 				{
 					$childQuery = "SELECT m.roomname,m.multiroomchildid FROM multiroomchild m WHERE m.roomid='".$row["roomid"]."'";
@@ -327,11 +370,11 @@ function changeOptions(campusid) {
 						 $_SESSION['error'] = "Query error: ".mysqli_error($conn);
 					}
 				}
-				else
-				{
+				*/
+				
 				$rooms[$row["roomid"]]["name"] = $row["roomname"];
 				$rooms[$row["roomid"]]["id"] = $row["roomid"];
-				}
+				
 			}
 		}
 		if(!$runquery2)
@@ -684,10 +727,10 @@ function createTable(numWeeks,remainder,date1,date2) {
 		}
 		else
 		{
-		var td = document.createElement("td");
-		if(i==0 && j==0)
+			var td = document.createElement("td");
+			if(i==0 && j==0)
 			{
-			icon = document.createElement("img");
+				icon = document.createElement("img");
 				icon.src="../pic/up.png";
 				icon.setAttribute("onclick","undoCollapse();");
 				td.appendChild(icon);
@@ -706,7 +749,7 @@ function createTable(numWeeks,remainder,date1,date2) {
 			{
 				
 				
-			rid = arr[roomCnt]["id"];
+				rid = arr[roomCnt]["id"];
 				input = document.createElement("input");
 				input.type = "checkbox";
 				input.name = "roomid";
@@ -728,7 +771,7 @@ function createTable(numWeeks,remainder,date1,date2) {
 				weekTitle.setDate(weekTitle.getDate()+(weekCnt-1)*7);
 				
 				td.appendChild(document.createTextNode("W"+weekCnt+" - "+weekTitle.toDateString()));
-				td.appendChild(document.createTextNode("W"+weekCnt+" - "+weekTitle.toDateString()));
+				//td.appendChild(document.createTextNode("W"+weekCnt+" - "+weekTitle.toDateString()));
 				td.colSpan="6";
 				td.className = "collapse"+weekCnt;
 				icon = document.createElement("img");
@@ -1131,18 +1174,8 @@ function showCheckbox(roomnumber) {
 }
 function loadNew() {
 	var valu = $('#startdate').val();
-	var valueDate;
-	valuDate = new Date(valu);
-	if(valuDate.getDay()==1)
-	{
+	
 	window.location.href = './admin_view_recurring_view.php?change='+valu;
-	}
-	else
-	{
-	var d = 5000;
-	alertify.set({ delay: d });
-				alertify.log("startweek must start on Monday");
-				}
 }
 function loadMore() {
 	window.location.href = './admin_view_recurring_view.php?more=1';
@@ -1156,6 +1189,12 @@ function undoCollapse() {
 	$("td[style*='display: none']").each(function(){
 		$(this).css("display","table-cell");
 	});
+}
+function previousMonth() {
+	window.location.href = './admin_view_recurring_view.php?moveMonth=1';
+}
+function nextMonth() {
+	window.location.href = './admin_view_recurring_view.php?moveMonth=2';
 }
 </script>
 
