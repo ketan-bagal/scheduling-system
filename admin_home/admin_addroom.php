@@ -356,6 +356,13 @@ if(isset($_SESSION["addingfailid"]))
 				alertify.set({ delay: d });
 				alertify.log("room name is required");
 				flag=false;
+			}else{
+				var patt = new RegExp("^[a-z0-9_-]{3,15}$");
+				if(!patt.test(roomname)){
+					alertify.log("Roomname format is not correct");
+					flag=false;
+				}
+
 			}
 			/*var roomtype = document.forms["container"]["roomtype"].value;
 			if (roomtype == null || roomtype == "")
