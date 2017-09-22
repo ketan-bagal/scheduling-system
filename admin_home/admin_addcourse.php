@@ -45,7 +45,7 @@
 								echo "<option value='' hidden selected>Select a programme</option>";
 								while($row = mysqli_fetch_array($result)) {
 									$currentbid = $row['programmeid'];
-									echo "<option data-duration=".$row['duration']; " value=".$currentbid; if(isset($schoolid)) {if($schoolid==$currentbid) {echo " selected";}} echo ">" .$row['name']."</option>";
+									echo "<option data-duration=".$row['duration']." value=".$currentbid; if(isset($schoolid)) {if($schoolid==$currentbid) {echo " selected";}} echo ">" .$row['name']."</option>";
 								}
 								echo "</select>";
 								mysqli_close($conn);
