@@ -13,7 +13,12 @@
 	//adding new
 	if(isset($_POST['new']))
 	{
-	
+		$campusname=trim($campusname," ");
+		$address=trim($address," ");
+		$pattern = '/\s{2,}/i';
+		$replacement = ' ';
+		$campusname = preg_replace($pattern, $replacement, $campusname);
+		$address = preg_replace($pattern, $replacement, $address);
 	$result = "INSERT INTO campus(campusname,address)
 				VALUES ('$campusname','$address')";
 		
