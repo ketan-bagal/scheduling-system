@@ -154,8 +154,6 @@ echo "</select>";
 
 mysqli_close($conn);
 ?>
-</div>
-<div class = "margin_left">
 <?php
 include '../php_script/connectDB.php';
 if (isset($_SESSION['campusid']) && $_SESSION['campusid'] != "Any") {
@@ -164,14 +162,14 @@ if (isset($_SESSION['campusid']) && $_SESSION['campusid'] != "Any") {
 	$sql="SELECT * FROM building";
 }
 $result = mysqli_query($conn,$sql);
-echo "<label for='buildingid'>Building: </label>
+echo "<br /><br /><label for='buildingid'>Building: </label>
 <select name='buildingid' id='buildingid' onchange='search(this.value,1)'>";
 echo "<option hidden>Select a building</option>";
 while($row = mysqli_fetch_array($result)) {
 	$buildingid = $row['buildingid'];
 	echo "<option value='".$buildingid."'"; if(isset($_SESSION['buildingid'])) {if($_SESSION['buildingid']==$buildingid) {echo " selected";}} echo ">" .$row['buildingname']."</option>";
 }
-echo "</select>";
+echo "</select><br />";
 mysqli_close($conn);
 ?>
 
