@@ -125,12 +125,13 @@ else {echo "<input type='submit' name='new' value='Submit' >";}?>
 				alertify.log("building name is required");
 				flag=false;
 			}else{
-				var regex = /^[^\s\t].{2,39}$/;
+				buildingname = buildingname.trim();
+				var regex = new RegExp("^.{3,40}$");
 				if(!regex.test(buildingname))
 				 {
 					 d += 500;
 					alertify.set({ delay: d });
-					alertify.log("Please try 3-40 characters for the building name");
+					alertify.log("Please type 3-40 characters for the building name");
 					flag=false;
 				 }
 			}
