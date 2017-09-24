@@ -30,12 +30,12 @@
 						
 					if ($runquery = $conn->query($result)){
 						$_SESSION['error'] = "Password edited successfully.";
-						header('location: ./editpassword.php');
+						header('location: ./editprofile.php');
 						exit();
 					}else{
 						$_SESSION['errorid'] = $userid;
 						$_SESSION['error'] = "Failed to edit password.";
-						header('location:./editpassword.php');
+						header('location:./editprofile.php');
 						exit();
 					}
 				}
@@ -48,12 +48,12 @@
 		$result = "UPDATE user SET email='$email' WHERE userid='$userid'";
 		if ($runquery = $conn->query($result)){
 			$_SESSION['error'] = "Email edited successfully.";
-			header('location: ./editemail.php');
+			header('location: ./editprofile.php');
 			exit();
 		}else{
 			$_SESSION['errorid'] = $userid;
 			$_SESSION['error'] = "Failed to edit email.";
-			header('location:./editemail.php');
+			header('location:./editprofile.php');
 			exit();
 		}
 	}
