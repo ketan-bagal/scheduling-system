@@ -16,8 +16,8 @@
 		echo "<li><div class='dropdown'>
   <a href='../admin_home/admin_editroom.php' class='hvr-back-pulse'><span >Room</span></a>
   <div class='dropdown-content'>
-    <a href='../admin_home/admin_editcampus.php' class='hvr-back-pulse'><span class='dropbtn'>Campus</span></a>
     <a href='../admin_home/admin_editbuilding.php' class='hvr-back-pulse'><span class='dropbtn'>Building</span></a>
+    <a href='../admin_home/admin_editcampus.php' class='hvr-back-pulse'><span class='dropbtn'>Campus</span></a>
 
   </div>
 </div></li>";

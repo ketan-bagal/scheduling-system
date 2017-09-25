@@ -80,8 +80,8 @@
 <input type="text" name="address" placeholder="Address" value="<?php if(isset($_SESSION['address'])) echo $_SESSION['address'];?>">
 </fieldset>
 
-<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit'>";$_SESSION['updatingid']=$_SESSION['campusid'];}
-else {echo "<input type='submit' name='new' value='submit'>";}?>
+<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='Submit'>";$_SESSION['updatingid']=$_SESSION['campusid'];}
+else {echo "<input type='submit' name='new' value='Submit'>";}?>
 
 </form>
 </div>
@@ -103,11 +103,14 @@ else {echo "<input type='submit' name='new' value='submit'>";}?>
 				flag=false;
 			}else{
 				campusname = campusname.trim();
-				var patt = new RegExp("^[A-Za-z ]+$");
-				if(!patt.test(campusname)){
-					alertify.log("Campus name format is not correct");
+				var regex = new RegExp("^.{3,40}$");
+				if(!regex.test(campusname))
+				 {
+					 d += 500;
+					alertify.set({ delay: d });
+					alertify.log("Please type 3-40 characters for the campus name");
 					flag=false;
-				}
+				 }
 			}
 			var address = document.forms["form1"]["address"].value;
 			if (address == null || address == "")

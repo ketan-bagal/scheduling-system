@@ -47,6 +47,17 @@
 </div><!--error--><br />
 <div id="container">
 <div class="form">
+	<?php
+		include '../php_script/connectDB.php';
+		$userid = $_SESSION['userid'];
+		echo "<label>User Name</label> <input type='text' value='".$userid."' readonly />";
+		$queryEmail="SELECT email FROM user WHERE userid='".$userid."'";
+		if($runEmail = $conn->query($queryEmail)){
+			$rowEmail = mysqli_fetch_array($runEmail);
+			echo "<label>Email</label> <input type='text' value='".$rowEmail['email']."' readonly />";
+		}
+	?>
+	
 <br />
 	<form id="form1" action="./editemail.php" method="post">
 	<input type='submit' name='email' value='Edit email'>

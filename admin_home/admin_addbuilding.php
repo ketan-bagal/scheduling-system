@@ -17,6 +17,7 @@
 		{
 		$buildingid=$_GET['edit'];
 		}
+
 		else
 		{
 			$buildingid=$_SESSION['errorid'];
@@ -102,8 +103,8 @@ mysqli_close($conn);
 ?>
 </fieldset>
 
-<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit' >";$_SESSION['updatingid']=$_SESSION['buildingid'];}
-else {echo "<input type='submit' name='new' value='submit' >";}?>
+<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='Submit' >";$_SESSION['updatingid']=$_SESSION['buildingid'];}
+else {echo "<input type='submit' name='new' value='Submit' >";}?>
 
 </form>
 </div>
@@ -123,9 +124,19 @@ else {echo "<input type='submit' name='new' value='submit' >";}?>
 				alertify.set({ delay: d });
 				alertify.log("building name is required");
 				flag=false;
+			}else{
+				buildingname = buildingname.trim();
+				var regex = new RegExp("^.{3,40}$");
+				if(!regex.test(buildingname))
+				 {
+					 d += 500;
+					alertify.set({ delay: d });
+					alertify.log("Please type 3-40 characters for the building name");
+					flag=false;
+				 }
 			}
 			var campusid = document.forms["form1"]["campusid"].value;
-			if (campusid == null || campusid == "Select a campus")
+			if (campusid == null || campusid == "")
 			{
 				d += 500;
 				alertify.set({ delay: d });
