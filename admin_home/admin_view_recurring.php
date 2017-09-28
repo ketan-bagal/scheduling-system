@@ -41,7 +41,7 @@
 <form id="container" action="./admin_view_recurring_view.php">
 <fieldset>
 <label for='startdate'>Start Week:</label>
-<input type="date" name="startdate" value="" />
+<input type="date" id="startdate" name="startdate" value="2017-11-20" />
 
 
 
@@ -67,6 +67,14 @@ mysqli_close($conn);
 </div>
 </div>
 <script>
+Date.prototype.toDateInputValue = (function() {
+    var local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0,10);
+});
+
+document.getElementById('startdate').value = new Date().toDateInputValue();
+
 $("#container").on('submit', function () 
 		{	
 		
@@ -80,7 +88,7 @@ $("#container").on('submit', function ()
 				alertify.log("startdate is required");
 				flag=false;
 			}
-			*/var temp = new Date(startdate);
+			/*var temp = new Date(startdate);
 			temp = temp.getDay();
 			if (temp != 1) 
 			{
@@ -88,8 +96,8 @@ $("#container").on('submit', function ()
 				alertify.set({ delay: d });
 				alertify.log("startweek muust start from monday");
 				flag=false;
-			}*/
-			
+			}
+			*/
 			
 			var course = document.forms["container"]["cohort"].value;
 			if (course == null || course == "") 
