@@ -35,7 +35,7 @@
 		?>
 </div><!--error--><br />
 <?php include '../php_includes/add.php'; ?>
-<div class="tables">
+
 <?php
 include '../php_script/connectDB.php';
 	if(isset($_GET['deletingid']))
@@ -87,7 +87,7 @@ echo "<div class=''>
 </div>";
 
 
-
+echo '<br /><div class="tables" style="overflow-x:scroll; overflow-y:scroll;  width:100%; height: 400px; ">';
 
 
 
@@ -121,10 +121,12 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
 
 				for ($i=0; $i < $row2['semesters'] ; $i++) {
 				echo "
-    		<th>Start</th>
-        <th>End</th>
-        <th>Time</th>
-    		<th>Room</th>";
+    		<td>Start</td>
+        <td>End</td>
+        <td>Time</td>
+        <td>AT<br />Wks</td>
+        <td style='color:red;'>RT<br />Wks</td>
+    		<td>Room</td>";
 				}
 
     		echo "</tr></thead>
@@ -133,7 +135,7 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
 				<td></td>";
 
 				for ($i=0; $i < $row2['semesters'] ; $i++) {
-					echo "<td colspan='4' >Semester".($i+1)."</td>";
+					echo "<th colspan='6' >Semester".($i+1)."</th>";
 				}
 
     		echo "</tr>";
@@ -157,6 +159,7 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
           				echo "<td>" . date('d-m-Y', strtotime($row4['cohortenddate'])) ."</td>";
 
           				echo "<td>" . date('h a', strtotime($row3['starttime']))."&nbsp - &nbsp".date('h a', strtotime($row3['endtime']))."</td>";
+          				echo "<td></td><td></td>";
           				echo "<td>" . $row3['roomname'] ."</td>";
 									}
 
