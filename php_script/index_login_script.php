@@ -32,7 +32,7 @@ else
 
 			if($row['usertype']== 1)
 			{
-				header('location: ../admin_home/editcohort.php'); 
+				header('location: ../admin_home/admin_editcohort.php'); 
 				exit();
 			}
 			if($row['usertype']== 0)
