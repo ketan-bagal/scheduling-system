@@ -16,8 +16,7 @@
 	<div id="nzseLogo"><img src="pic/logo.png"></div>
 	</div>
     <div class="wrapper">
-	<div class="container">
-	<h1> Log in </h1><br />
+	<div class="container"><br />
 		<div id='error_index'>
 		<?php
 				if(isset($_SESSION['error']))
@@ -29,7 +28,7 @@
 		</div><!--error-->
 	
 		<form id="index" method="post" action="./php_script/index_login_script.php">
-			<input type="text" placeholder="ID number" id ='uname' name='uname'>
+			<input type="text" placeholder="Username" id ='uname' name='uname'>
 			<input type="password" placeholder="Password" id ='passwd' name='passwd'>
 			<button type="submit" id="login-button">Login</button>
 		</form>
