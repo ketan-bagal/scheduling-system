@@ -24,6 +24,7 @@ $result2 = mysqli_query($conn,$sql2);
 $row2 = mysqli_fetch_array($result2);
 $classduration=$row2['classduration'];
 $endtime=$classduration+$selectedtime;
+$distime = $selectedtime - 1;
 echo "<input type='number' name='endtime' value='".$endtime."' id='endtime' hidden> ";
 
 //change enddate automatically
@@ -37,9 +38,11 @@ echo "<label>Room:</label>";
 //$sql4="SELECT room.roomname FROM (SELECT roomname, roomid FROM room WHERE room.buildingid='".$buildingid."') r WHERE r.roomid NOT IN (SELECT roomid FROM cohort WHERE cohort.starttime='".$selectedtime.":00:00')";
 //$sql3="SELECT room.roomname FROM room, cohort WHERE room.roomid=cohort.roomid AND room.buildingid='".$buildingid."' AND cohort.starttime!='".$selectedtime.":00:00'";
 //$sql3="SELECT roomid FROM room WHERE room.buildingid='".$buildingid."'";
-$sql3="SELECT r.roomname FROM (SELECT roomname, roomid FROM room WHERE room.buildingid='".$buildingid."') r WHERE r.roomid NOT IN (SELECT roomid FROM cohort WHERE cohort.starttime='".$selectedtime.":00:00') ORDER BY r.roomid ASC";
+$sql3="SELECT r.roomname FROM (SELECT roomname, roomid FROM room WHERE room.buildingid='".$buildingid."') r WHERE r.roomid NOT IN (SELECT roomid FROM cohort WHERE (cohort.starttime>'".$selectedtime.":00:00' AND cohort.starttime<'".$endtime.":00:00') OR (cohort.starttime<='".$selectedtime.":00:00' AND cohort.endtime>='".$endtime.":00:00') OR (cohort.starttime <'".$selectedtime.":00:00' AND cohort.endtime>'".$selectedtime.":00:00')) ORDER BY r.roomid ASC";
 $result3 = mysqli_query($conn,$sql3);
-if (!empty($result3)) {
+$result4 = mysqli_num_rows($result3);
+
+if ($result4 != null) {
 	while($row3 = mysqli_fetch_array($result3)){
 		echo "<input type='radio' name='roomid' value='".$row3['roomname']."'>".$row3['roomname'];
 	}

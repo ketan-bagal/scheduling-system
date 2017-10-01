@@ -40,7 +40,7 @@
 								$sql="SELECT * FROM campus";
 								$result = mysqli_query($conn,$sql);
 								echo "<select id='campusid' name='campusid'  onchange='changeOptions(this.value)'>";
-								echo "<option hidden selected>Select a campus</option>";
+								echo "<option  value='' hidden selected>Select a campus</option>";
 								while($row = mysqli_fetch_array($result)) {
 									$currentid = $row['campusid'];
 									echo "<option value='$currentid'"; if(isset($campusid)) {if($campusid==$currentid) {echo " selected";}} echo ">" .$row['campusname']."</option>";
@@ -69,13 +69,13 @@
 								<input type="date" name="startdate" id="submit_startdate" onchange="myFunction(this.value)">
 								<button type="button" name="button" id="view_available_slot" onclick="document.getElementById('myPopup').style.display='initial'" hidden>view available slot</button>
 								<label for="campusname" >End Date:</label>
-								<input type="date" name="enddate" onchange="calculdura();" id="submit_enddate">
+								<input type="date" name="enddate" onchange="calculdura();" id="submit_enddate" readonly>
 								<label for="campusname" >Duration(weeks):</label>
 								<input id="duration" name="duration" value="0" disabled>
 								<label for="campusname" >Start 	Time:</label>
-								<input type="time" name="starttime" id="submit_starttime">
+								<input type="time" name="starttime" id="submit_starttime" readonly>
 								<label for="campusname" >End Time:</label>
-								<input type="time" name="endtime" id="submit_endtime">
+								<input type="time" name="endtime" id="submit_endtime" readonly>
 
 								<div id="semesters">
 								</div>
@@ -102,12 +102,13 @@
 <div id="myPopup" class="modal">
 	<div class="modal-content animate">
   	<div class="titlecontainer">
-    	<span onclick="document.getElementById('myPopup').style.display='none'" class="close" title="Close Modal">&times;</span>
+    	<span onclick="document.getElementById('myPopup').style.display='none'; document.getElementById('error_guide').innerHTML='';" class="close" title="Close Modal">&times;</span>
     	<h4>available room and time</h4>
     	<hr>
   	</div>
 
 		<div class="container">
+			<span id="error_guide" style="color:red"></span><br>
 			<div id="timecontainer"></div>
 			<div id="roomcontainer"></div>
 		</div>
@@ -121,49 +122,62 @@
 <script>
 
 function transfer() {
-	var enddate = document.getElementById('enddate').value;
-	var starttime = $("input[name='starttime']:checked").val();
-	var endtime = document.getElementById('endtime').value;
-	var programmeid = document.getElementById('programmeid').value;
-	var index = $("input[name='roomid']:checked").val();
+	try {
+		var enddate = document.getElementById('enddate').value;
+		var starttime = $("input[name='starttime']:checked").val();
+		var endtime = document.getElementById('endtime').value;
+		var programmeid = document.getElementById('programmeid').value;
+		var index = $("input[name='roomid']:checked").val();
 
-document.getElementById('view_available_slot').style.display="inline";
-//change enddate
-	$('#submit_enddate').val(enddate);
+	document.getElementById('view_available_slot').style.display="inline";
+	//change enddate
+		$('#submit_enddate').val(enddate);
 
-	var startdate =new Date(document.getElementById("submit_enddate").value);
-	var enddate =new Date(document.getElementById("submit_startdate").value);
-	var timeDiff = Math.abs(startdate.getTime() - enddate.getTime());
-	var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24*7));
-	document.getElementById("duration").value = diffDays;
-	//change default of semesters Date
+		var startdate =new Date(document.getElementById("submit_enddate").value);
+		var enddate =new Date(document.getElementById("submit_startdate").value);
+		var timeDiff = Math.abs(startdate.getTime() - enddate.getTime());
+		var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24*7));
+		document.getElementById("duration").value = diffDays;
+		//change default of semesters Date
 
-	var def_startdate = document.getElementById('submit_startdate').value;
-	$('#start_semester1').val(def_startdate);
-	var semesters = document.getElementById('get_semesters').value;
-	var end_semester = document.getElementById('submit_enddate').value;
-	$('#end_semester' + semesters).val(end_semester);
-	//change starttime
-	if (starttime >= 10) {
-		document.getElementById('submit_starttime').value = starttime+":00";
+		var def_startdate = document.getElementById('submit_startdate').value;
+		$('#start_semester1').val(def_startdate);
+		$('#start_semester1').attr('readonly', 'true');
+		var semesters = document.getElementById('get_semesters').value;
+		var end_semester = document.getElementById('submit_enddate').value;
+		$('#end_semester' + semesters).val(end_semester);
+		$('#end_semester' + semesters).attr('readonly', 'true');
+		//change starttime
+		if (starttime >= 10) {
+			document.getElementById('submit_starttime').value = starttime+":00";
+		}else {
+			document.getElementById('submit_starttime').value = "0"+starttime+":00";
+		}
+
+	//change endtime
+		if (endtime >= 10) {
+			document.getElementById('submit_endtime').value = endtime+":00";
+		}else {
+			document.getElementById('submit_endtime').value = "0"+endttime+":00";
+		}
+
+	//change room in select drop down box
+	$('[name=roomid] option').filter(function() {
+		return ($(this).text() == index);
+	}).prop('selected', true);
+
+	//close popup
+	var val = document.getElementById('campusid').value;
+	if (val == '') {
+		document.getElementById('error_guide').innerHTML="Please select campus and programme first, then try again!";
 	}else {
-		document.getElementById('submit_starttime').value = "0"+starttime+":00";
+		document.getElementById('myPopup').style.display="none";
+	}
+	} catch (err) {
+
+			document.getElementById('error_guide').innerHTML="Please select programme first, then try again!";
 	}
 
-//change endtime
-	if (endtime >= 10) {
-		document.getElementById('submit_endtime').value = endtime+":00";
-	}else {
-		document.getElementById('submit_endtime').value = "0"+endttime+":00";
-	}
-
-//change room in select drop down box
-$('[name=roomid] option').filter(function() {
-	return ($(this).text() == index);
-}).prop('selected', true);
-
-//close popup
-	document.getElementById('myPopup').style.display="none";
 }
 
 
@@ -289,7 +303,7 @@ function validateTime(){
 				flag=false;
 			}
 		}
-		
+
 		return flag;
 	}
 

@@ -67,24 +67,25 @@
 								  	<th style='width:50%'>Courses</th>
 							  </tr>
 					";
+					$querySemester= "SELECT `semester`, count(*) as 'count' FROM `programme_course` GROUP BY programme_course.semester order by `semester` ASC";
+					$runSemester= mysqli_query($conn,$querySemester);
+					while ($rowSemester = mysqli_fetch_array($runSemester)) {
+						echo "<tr class='data' value='".$rowSemester['semester']."'>
+											<td rowspan=".($rowSemester['count']+1)." > Semester ".$rowSemester['semester']."</td>
+											</tr>";
+											$queryCourses= "SELECT course.name, programme_course.pcid FROM course, programme_course WHERE course.courseid = programme_course.courseid and programme_course.semester= '".$rowSemester['semester']."' ORDER BY programme_course.priority ASC ";
+											$runCourses= mysqli_query($conn,$queryCourses);
+											while ($rowCourses = mysqli_fetch_array($runCourses)) {
+												echo"	<tr class='data_two' value='".$rowCourses['pcid']."'>
+																	<td >".$rowCourses['name']."</td>
+																	</tr>	";
+											}
+
+					}
 				}else {
 					echo "<h4>No semester and course for this programme!</h4>";
 				}
-				$querySemester= "SELECT `semester`, count(*) as 'count' FROM `programme_course` GROUP BY programme_course.semester order by `semester` ASC";
-				$runSemester= mysqli_query($conn,$querySemester);
-				while ($rowSemester = mysqli_fetch_array($runSemester)) {
-					echo "<tr class='data' value='".$rowSemester['semester']."'>
-										<td rowspan=".($rowSemester['count']+1)." > Semester ".$rowSemester['semester']."</td>
-										</tr>";
-										$queryCourses= "SELECT course.name, programme_course.pcid FROM course, programme_course WHERE course.courseid = programme_course.courseid and programme_course.semester= '".$rowSemester['semester']."' ORDER BY programme_course.priority ASC ";
-										$runCourses= mysqli_query($conn,$queryCourses);
-										while ($rowCourses = mysqli_fetch_array($runCourses)) {
-											echo"	<tr class='data_two' value='".$rowCourses['pcid']."'>
-																<td >".$rowCourses['name']."</td>
-																</tr>	";
-										}
 
-				}
 
 					// $queryCourses= "SELECT programme_course.pcid, course.programmeid, course.name, programme_course.semester, sub.count FROM course, programme_course INNER JOIN (SELECT semester, count(semester) AS count FROM course, programme_course WHERE course.courseid = programme_course.courseid AND course.programmeid='".$programmeid."' GROUP BY programme_course.semester) sub ON sub.semester = programme_course.semester WHERE course.courseid = programme_course.courseid AND course.programmeid='".$programmeid."' ORDER BY programme_course.semester, programme_course.priority";
 					// $runCourses= mysqli_query($conn,$queryCourses);
