@@ -53,7 +53,7 @@
 								$sql="SELECT * FROM programme";
 								$result = mysqli_query($conn,$sql);
 								echo "
-								<select name='programmeid' id='programmeid' onchange='setSemester(this.value)'>";
+								<select name='programmeid' id='programmeid' onchange='setSemester(this.value);'>";
 								echo "<option value='' hidden selected>Select a programme</option>";
 								while($row = mysqli_fetch_array($result)) {
 									$currentbid = $row['programmeid'];
@@ -96,6 +96,26 @@
 
 					</div>
 				</div>
+				<div id="cohort_summary_button" style="position:fixed; bottom:0; right:0;overflow:auto;margin:15% auto;width:10%; padding:10px;z-index:8;">
+				<span onclick="document.getElementById('cohort_summary').style.display='block'">open</span>
+				</div>
+				<div id="cohort_summary" style="position:fixed; bottom:0; right:0; width:30%; height:45%; overflow:auto; z-index:9;";>
+				<div id="cohort_summary_content" style="background-color: #fefefe; margin:15% auto; padding:10px; border: 1px solid #888; width:80%;">
+				<span style="float:right; z-index:8;" onclick="document.getElementById('cohort_summary').style.display='none'">close</span>
+					<h3 id="summary_s_1">Sem 1 &emsp;&emsp;</h3>
+					<h3 id="summary_b_1" class="oddSumm" style="">Break   </h3>
+					<h3 id="summary_s_2" >Sem 2 &emsp;&emsp;</h3>
+					<h3 id="summary_b_2" class="oddSumm">Break   </h3>
+					<h3 id="summary_s_3">Sem 3 &emsp;&emsp;</h3>
+					<h3 id="summary_b_3" class="oddSumm">Break   </h3>
+					<h3 id="summary_s_4">Sem 4 &emsp;&emsp;</h3>
+					<h3 id="summary_b_4" class="oddSumm">Break   </h3>
+					<h3>_____________</h3>
+					<h3 id="summary_total">Total &emsp;&emsp;</h3>
+					<h3 id="summary_prog">Prog. &emsp;&emsp;</h3>
+				</div>
+				</div>
+				
 			</div>
 </div>
 
@@ -206,6 +226,7 @@ function myFunction(startdate) {
 	xmlhttp2.onreadystatechange = function() {
 			if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
 					document.getElementById("roomcontainer").innerHTML = xmlhttp2.responseText;
+					
 			}
 	}
 
@@ -229,6 +250,7 @@ function setSemester(programmeid){
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
                 document.getElementById("semesters").innerHTML = xmlhttp.responseText;
+
             }
         }
         xmlhttp.open("GET","../php_script/getsemesterform_script.php?programmeid="+programmeid,true);
@@ -238,11 +260,14 @@ function setSemester(programmeid){
         xmlhttp2.onreadystatechange = function() {
             if (xmlhttp2.readyState == 4 && xmlhttp2.status == 200) {
                 document.getElementById("programmedura").value = xmlhttp2.responseText;
+				document.getElementById("summary_prog").innerHTML = "Prog. &emsp;&emsp;" + xmlhttp2.responseText;
             }
         }
         xmlhttp2.open("GET","../php_script/checkTime.php?programmeid="+programmeid,true);
         xmlhttp2.send();
 }
+
+		
 function validateTime(){
 		var dura = document.getElementById("duration").value;
 		var programmeid = document.getElementById("programmeid").value;
@@ -329,11 +354,75 @@ function changeOptions(campusid) {
         tabcontent[i].style.display = "none";
     }
     document.getElementById(cityName).style.display = "block";
-    evt.currentTarget.className += " active";
-	document.getElementById("test123").innerHTML = cityName;
+    //evt.currentTarget.className += " active";
+	//document.getElementById("test123").innerHTML = cityName;
 	}
 
+	function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+    return [year, month, day].join('-');
+}
+
+	function calculateSemesterEndDate(weeks,number) {
+		var start_semester = document.getElementById("start_semester"+number);
+		var end_semester = document.getElementById("end_semester"+number);
+		var enddate = new Date(start_semester.value);
+		enddate.setDate(enddate.getDate()+(weeks*7));
+		enddate = formatDate(enddate);
+		end_semester.value = enddate;
+		
+		
+		setSem(weeks,number);
+	}
+	
+	function calculateSemesterStartDate(weeks, number) {
+		var start_semester = document.getElementById("start_semester"+(number+1));
+		var end_semester = document.getElementById("end_semester"+number);
+		if(start_semester)
+		{
+			var startdate = new Date(end_semester.value);
+			startdate.setDate(startdate.getDate()+(weeks*7));
+			startdate = formatDate(startdate);
+			start_semester.value = startdate;
+		}
+		
+		setBreak(weeks,number);
+	}
+	
+function setSem(weeks,number)
+{
+	document.getElementById("summary_s_"+number).innerHTML = "Sem "+number+"&emsp;&emsp;"+weeks;
+	caculateSummaryTotal();
+}
+function setBreak(weeks,number)
+{
+	document.getElementById("summary_b_"+number).innerHTML = "Break &emsp;&emsp;"+weeks;
+	caculateSummaryTotal();
+}
+
+function caculateSummaryTotal()
+{
+	var total = document.getElementById("summary_total");
+	var inputs = document.getElementsByClassName("summaryInputs");
+	var num = 0;
+	for(var i=0; i<=inputs.length; i++)
+	{
+		if(inputs[i] && inputs[i].value)
+		{
+			num += parseInt(inputs[i].value);
+		}
+	}
+	
+	total.innerHTML = "Total &emsp;&emsp;"+num;
+}
+	
 
 
 
