@@ -62,7 +62,7 @@
 		echo "<li>Report</li>";
 		echo "<li><a href='../admin_home/admin_viewreport_tutor.php' class='hvr-back-pulse'>Tutor</a></li>";
 		echo "<li><a href='../admin_home/admin_viewreport_room.php' class='hvr-back-pulse'>Room</a></li>";
-		echo "<li><a href='../admin_home/admin_view_recurring.php' class='hvr-back-pulse'>Booking</a></li>";
+		echo "<li><a href='../admin_home/admin_view_recurring_view.php?submit=1' class='hvr-back-pulse'>Booking</a></li>";
 		//echo "<li><a href='../admin_home/admin_viewganttchart.php' class='hvr-back-pulse'>Ganttchart</a></li>";
 		}
 		elseif($_SESSION["usertype"]==0)

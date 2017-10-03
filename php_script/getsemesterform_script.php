@@ -21,8 +21,10 @@ echo"<br />";
 for($i=1;$i<=$semesters;$i++){
 	echo  "<div id='".$i."' class='tabcontent'>
 				<h3>Semester ".$i."</h3>
-				<input type='date' name='semesterS".$i."' id='start_semester".$i."'><br />
-				<input type='date' name='semesterE".$i."' id='end_semester".$i."'><br />
+				<input type='date' name='semesterS".$i."' id='start_semester".$i."' readonly><br />
+				<input type='number' class='summaryInputs' placeholder='Semester ".$i." duration in week' id='semester".$i."Duration' min=0 onchange='calculateSemesterEndDate(this.value,".$i.")'><br />
+				<input type='date' name='semesterE".$i."' id='end_semester".$i."' readonly><br />
+				<input type='number' class='summaryInputs' placeholder='break ".$i." in week' id=break".$i."' min=0 onchange='calculateSemesterStartDate(this.value,".$i.")'><br />
 		 </div>" ;
 }
 mysqli_close($conn);

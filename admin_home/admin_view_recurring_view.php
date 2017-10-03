@@ -24,63 +24,12 @@ $result = mysqli_query($conn,$sql);
 if(isset($_GET['submit']))
 {
 	
-	$_SESSION["startdate"] = $_GET["startdate"];
-	
-	
+	$_SESSION["startdate"] = new DateTime();
+	$_SESSION["startdate"] = $_SESSION["startdate"]->format('Y-m-d');
 
-	if($_GET["campusid"]=="Select a campus")
-	{
-		$_GET["campusid"] = "Any";
-	}
-	$_SESSION["campusid"] = $_GET["campusid"];
-	if(isset($_GET["mon"]))
-	{
-		$_SESSION["mon"]  = $_GET["mon"];
-	}
-	else
-	{
-		$_SESSION["mon"]  = 0;
-	}
-	if(isset($_GET["tue"]))
-	{
-		$_SESSION["tue"]  = $_GET["tue"];
-	}
-	else
-	{
-		$_SESSION["tue"]  = 0;
-	}
-	if(isset($_GET["wed"]))
-	{
-		$_SESSION["wed"]  = $_GET["wed"];
-	}
-	else
-	{
-		$_SESSION["wed"]  = 0;
-	}
-	if(isset($_GET["thu"]))
-	{
-		$_SESSION["thu"]  = $_GET["thu"];
-	}
-	else
-	{
-		$_SESSION["thu"]  = 0;
-	}
-	if(isset($_GET["fri"]))
-	{
-		$_SESSION["fri"]  = $_GET["fri"];
-	}
-	else
-	{
-		$_SESSION["fri"]  = 0;
-	}
-	if(isset($_GET["sat"]))
-	{
-		$_SESSION["sat"]  = $_GET["sat"];
-	}
-	else
-	{
-		$_SESSION["sat"]  = 0;
-	}
+	$_SESSION["campusid"] = "Any";
+	
+	unset($_GET["submit"]);
 }
 
 	
