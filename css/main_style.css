@@ -1063,15 +1063,14 @@ label {
     color: white;
 }
 
-.btn_delete{
-  display: none;
-  position: absolute;
-  left: 350px;
-  margin-top: -6px;
-}
-.btn_delete_two{
-  display: none;
-}
+
+
+
 table{
  border: none !important;
+}
+.button_delete{
+	position: relative;
+	left: 10%;
+	display: none;
 }

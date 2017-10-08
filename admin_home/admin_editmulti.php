@@ -328,7 +328,7 @@ alreadyRun=true;
 </script>
 </div>
 </fieldset>
-<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit'>"; $_SESSION['updatingid']=$roomid;} else {echo "<input type='submit' name='new' value='submit'>";}
+<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='Submit'>"; $_SESSION['updatingid']=$roomid;} else {echo "<input type='submit' name='new' value='Submit'>";}
 ?>
 
 </form>

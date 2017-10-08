@@ -114,7 +114,7 @@ include '../php_script/connectDB.php';
 				echo "<tr value='$userid' class='data'>";
 				//echo "<td><a href='./admin_adduser.php?edit=$userid'><img src='../pic/edit.png' /></a> <a href='./admin_adduser.php?copy=$userid'><img src='../pic/copy.png' /></a> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a> <a onclick='resetAction($did)'><img src='../pic/reset.png' /></a></td>";
 
-				echo "<td>" . $userid . "</td>";
+				echo "<td>" . $userid . "<img  onclick='confirmAction (\"$userid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td>" . $usertype ."</td>";
 				echo "<td>" . $row['email'] ."</td>";
 
@@ -140,7 +140,7 @@ function resetAction (id) {
     });
 }
 </script>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>
 </div>

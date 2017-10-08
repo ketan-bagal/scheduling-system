@@ -22,7 +22,7 @@
 			<?php include '../php_includes/header.php'; ?>
 			<?php include '../php_includes/nav.php'; ?>
 			<div class="col-6 col-m-9 content">
-				<h1>Edit Campusprogramme</h1>
+				<h1>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Course	</h1>
 
 <div id='error'>
 		<?php
