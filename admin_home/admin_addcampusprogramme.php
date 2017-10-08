@@ -65,7 +65,7 @@
 								?>
 							</fieldset>
 
-							<input type='submit' name='submit' value='submit'>
+							<input type='submit' name='submit' value='Submit'>
 
 						</form>
 					</div>

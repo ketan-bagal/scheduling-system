@@ -1072,7 +1072,7 @@ function showCheckbox(roomnumber) {
 <form id="container" onsubmit='return checkCheckbox()' action="./manager_recurring_view_script.php">
 <div id="booking">
 </div>
-<input type="submit" name="submit" value="submit" />
+<input type="submit" name="submit" value="Submit" />
 </form>
 <script>
 

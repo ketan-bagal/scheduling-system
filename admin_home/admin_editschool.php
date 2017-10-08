@@ -76,7 +76,7 @@ include '../php_script/connectDB.php';
 				$did = json_encode($row['schoolid']);
 				echo "<tr value='$schoolid' class='data'>";
 				//echo "<td> <!--<a href='./admin_addschool.php?edit=$schoolid'><img src='../pic/edit.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-        echo "<td contenteditable=\"true\" data-old-value='".$row['name']."' onBlur=\"saveInlineEdit(this,'name','".$row['schoolid']."','school')\" onClick=\"highlightEdit(this);\">" . $row['name']."</td>";
+        echo "<td  >" . $row['name']."<img  onclick='confirmAction (\"$schoolid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "</tr>";
 			}
 		}
@@ -87,7 +87,7 @@ include '../php_script/connectDB.php';
 </div>
 		</div>
 
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>
 </div>

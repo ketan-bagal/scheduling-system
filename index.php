@@ -1,6 +1,6 @@
 <?php session_start();?>
 <!DOCTYPE html>
-<html >
+<html style="overflow-x:hidden;">
   <head>
     <meta charset="UTF-8">
     <title>NZSE booking system</title>

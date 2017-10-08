@@ -3,7 +3,7 @@
 <?php
 if($_SESSION["usertype"]==1)
 {
-echo "<a href='../admin_home/admin_home.php' class='header'><img src='../pic/logo.png'></a>";
+echo "<a href='../admin_home/admin_editcohort.php' class='header'><img src='../pic/logo.png'></a>";
 }
 else
 {

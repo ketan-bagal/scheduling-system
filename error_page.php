@@ -13,13 +13,13 @@
 <body>
 <div id='container'>
 	<header>
-	<h1>Something is wrong</h1>
+	<h1>Your session has expired!</h1>
 	</header><!--header-->
 	<div id="logoutbutton">
 		<?php 
 			
 					print "<form action='./php_script/logout.php'>";
-					print "<input type='submit' value='logout'>";
+					print "<input type='submit' value='Login'>";
 					print "</form>";	
 		?>
 	</div><!--logoutbutton-->
@@ -34,6 +34,6 @@
 		</div><!--error-->
 </div><!--container-->
 
-		<?php include './php_includes/footer.php'; ?>
+		
 </body>
 </html>

@@ -354,7 +354,7 @@ function changeOptions(campusid) {
 				{
 				echo "<td><a href='./admin_addroom.php?edit=$roomid'><img src='../pic/edit.png' /></a> <a href='./admin_addroom.php?copy=$roomid'><img src='../pic/copy.png' /></a> <a onclick='confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
 			}*/
-				echo "<td contenteditable=\"true\" data-old-value='".$value['roomname']."' onBlur=\"saveInlineEdit(this,'roomname','".$value['roomid']."','room')\" onClick=\"highlightEdit(this);\">" . $value["roomname"] ."\n";
+				echo "<td >" . $value["roomname"] ."\n";
 				if(isset($value["child"]))
 					{
 
@@ -366,10 +366,10 @@ function changeOptions(campusid) {
 					}
 					}
 
-				echo "</td>";
+				echo "<img  onclick='confirmAction (\"$roomid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td >" . $value['buildingname']."</td>";
 				echo "<td >" . $value['campusname']."</td>";
-				echo "<td contenteditable=\"true\" data-old-value='".$value['capacity']."' onBlur=\"saveInlineEdit(this,'capacity','".$value['roomid']."','room')\" onClick=\"highlightEdit(this);\">" . $value['capacity'] ."\n";
+				echo "<td>" . $value['capacity'] ."\n";
 				if(isset($value["child"]))
 					{
 					foreach($value["child"] as $subkey => $subvalue)
@@ -378,7 +378,7 @@ function changeOptions(campusid) {
 					}
 					}
 					echo "</td>";
-				echo "<td contenteditable=\"true\" data-old-value='".$value['floornumber']."' onBlur=\"saveInlineEdit(this,'floornumber','".$value['roomid']."','room')\" onClick=\"highlightEdit(this);\">" . $value['floornumber'] ."</td>";
+				echo "<td >" . $value['floornumber'] ."</td>";
 				// echo "<td>";
 				//
 				// if(isset($value["FixedResources"]))
@@ -422,7 +422,7 @@ echo "</tr>";
 
 </div>
 
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 
 <?php include '../php_includes/footer.php';?>
 </div>

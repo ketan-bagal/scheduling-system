@@ -22,7 +22,7 @@
 			<?php include '../php_includes/header.php'; ?>
 			<?php include '../php_includes/nav.php'; ?>
 			<div class="col-6 col-m-9 content">
-				<h1>Edit Courseprogramme</h1>
+				<h1>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Course</h1>
 
 				<div id='error'>
 						<?php
@@ -38,8 +38,24 @@
 				<div class="tables">
 					<div class="">
 						<?php
+								include '../php_script/connectDB.php';
+								$sql="SELECT * FROM campus";
+								$result = mysqli_query($conn,$sql);
+								echo "<select id='campusid' name='campusid'  style='width:30%;' onchange='changeOptions(this.value)'>";
+								echo "<option hidden selected>Search by Campus</option>";
+								echo "<option value='all'>All</option>";
+								while($row = mysqli_fetch_array($result)) {
+									$currentid = $row['campusid'];
+									echo "<option value='$currentid'"; if(isset($campusid)) {if($campusid==$currentid) {echo " selected";}} echo ">" .$row['campusname']."</option>";
+								}
+								echo "</select>";
+								mysqli_close($conn);
+								?>
+								<br /><br />
+						<div id="filter_programme">
+						<?php
 									include '../php_script/connectDB.php';
-									echo "<select id='programmeid' name='programmeid'  onchange=\"filter(this.value,'courseprogramme','programme')\">";
+									echo "<select id='programmeid' name='programmeid'  style='display:none;width:30%;' onchange=\"filter(this.value,'courseprogramme','programme');setSemester(this.value);\">";
 									echo "<option hidden>Select programme</option>";
 									$queryProgramme = "SELECT * FROM programme";
 									$runProg = mysqli_query($conn,$queryProgramme);
@@ -48,7 +64,9 @@
 										echo "<option value='".$rowProg['programmeid']."'";if(isset($_GET['programmeid'])) {if($_GET['programmeid']==$programmeid) {echo " selected";}} echo ">".$rowProg['name']."</option>";
 									}
 						?>
-					</select>
+						</select>
+					</div>
+					
 					</div>
 					<br>
 					<?php
@@ -83,7 +101,8 @@
 
 					}
 				}else {
-					echo "<h4>No semester and course for this programme!</h4>";
+					echo "<h4>This programme has not been linked to any courses. </h4>";
+					echo "<h4><a href='./admin_addprogrammestructure.php?id=$programmeid' style='color:blue;width:auto !important;'><span>Click here to link!</span></a></h4>";
 				}
 
 
@@ -118,10 +137,26 @@
 
 					?>
 				</div>
+				
 			</div>
 		</div>
 <script>
 
+
+function changeOptions(campusid) {
+	
+		document.getElementById("programmeid").style.display = "inline";
+        xmlhttp1 = new XMLHttpRequest();
+       
+        xmlhttp1.open("GET","../php_script/getprogrammeform_script.php?campusid="+campusid,false);
+        xmlhttp1.send();
+           
+        document.getElementById("programmeid").innerHTML = xmlhttp1.responseText;
+            
+      
+		
+		
+    }
 
 $('tr.data_two').each(function() {
 	var id = $(this).attr('value');
@@ -135,7 +170,6 @@ $('tr.data_two').mouseover(function() {
 
 	$(this).find('.btn_delete_two').css('display', 'none');
 });
-
 
 </script>
 <script src="../js/delete_record.js"></script>

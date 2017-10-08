@@ -91,7 +91,7 @@
 
 
 <?php
-if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit'>";$_SESSION['updatingid']=$holidayid;} else {echo "<input type='submit' name='new' value='submit' >";}
+if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='Submit'>";$_SESSION['updatingid']=$holidayid;} else {echo "<input type='submit' name='new' value='Submit' >";}
 ?>
 
 </form>

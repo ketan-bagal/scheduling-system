@@ -19,7 +19,7 @@
 			<?php include '../php_includes/header.php'; ?>
 			<?php include '../php_includes/nav.php'; ?>
 			<div class="col-6 col-m-9 content">
-				<h1>Define programme</h1>
+				<h1>Setup programme</h1>
 				<div id='error'>
 		<?php
 				if(isset($_SESSION['error']))
@@ -52,7 +52,7 @@
 							</table>
 
 							<br	/>
-							<input type='submit' name='submit' value='submit'>
+							<input type='submit' name='submit' value='Submit'>
 						</form>
 					</div>
 				</div>
@@ -60,6 +60,29 @@
 </div>
 
 <script>
+window.onload = function(){
+	var id = "<?php
+		if(isset($_GET['id'])){
+			echo $_GET['id'];
+		}
+		
+	?>";
+	var programvalue = document.getElementById("programmeid").value;
+	if(programvalue==''){
+		var selectele = document.getElementById('programmeid');
+		selectItemByValue(selectele, id);
+		selectele.onchange();
+	}
+    
+}
+function selectItemByValue(elmnt, value){
+
+    for(var i=0; i < elmnt.options.length; i++)
+    {
+      if(elmnt.options[i].value == value)
+        elmnt.selectedIndex = i;
+    }
+  }
 function changeOptions(programmeid) {
 
             // code for IE7+, Firefox, Chrome, Opera, Safari

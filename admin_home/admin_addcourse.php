@@ -56,7 +56,7 @@
 								<input type="number" name="level" min="0" max="10" value="" placeholder="Level">
 							</fieldset>
 
-							<input type='submit' name='submit' value='submit'>
+							<input type='submit' name='submit' value='Submit'>
 
 						</form>
 					</div>

@@ -82,7 +82,7 @@ $year=$_POST['year'];
 echo "<div class=''>
 	<form class='' action='downloadCSV.php' method='post'>
 		<input type='hidden' name='csvyear' value='".$year."'>
-		<input type='submit' name='' value='download'>
+		<input type='submit' name='' value='Download'>
 	</form>
 </div>";
 

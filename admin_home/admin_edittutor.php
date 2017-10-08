@@ -76,8 +76,8 @@ include '../php_script/connectDB.php';
 				$tutorid = $row['tutorid'];
 				$did = json_encode($row['tutorid']);
 				echo "<tr value='$tutorid' class='data'>";
-				//echo "<td><a href='./admin_addtutor.php?edit=$holidayid'><img src='../pic/edit.png' /></a> <a href='./admin_addtutor.php?copy=$holidayid'><img src='../pic/copy.png' /></a> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-				echo "<td>" . $row['firstname'] ." ".$row['lastname']."</td>";
+				//echo "<td><a href='./admin_addtutor.php?edit=$holidayid'><img src='../pic/edit.png' /></a> <a href='./admin_addtutor.php?copy=$holidayid'><img src='../pic/copy.png' /></a> <a href='javascript:confirmAction($did)'></a></td>";
+				echo "<td><span>" . $row['firstname'] ." ".$row['lastname']."</span><img  onclick='confirmAction (\"$tutorid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td>" . $row['email'] ."</td>";
 				echo "</tr>";
 			}
@@ -88,10 +88,11 @@ include '../php_script/connectDB.php';
 </div>
 </div>
 </div>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>
 </div>
+
 </body>
 </html>

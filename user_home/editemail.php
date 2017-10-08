@@ -54,8 +54,8 @@
 
 </fieldset>
 
-<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='submit'>";$_SESSION['updatingid']=$_SESSION['uid'];}
-else {echo "<input type='submit' name='email' value='submit'>";}
+<?php if(isset($_GET['edit'])) {echo "<input type='submit' name='submit' value='Submit'>";$_SESSION['updatingid']=$_SESSION['uid'];}
+else {echo "<input type='submit' name='email' value='Submit'>";}
   ?>
 
 </form>

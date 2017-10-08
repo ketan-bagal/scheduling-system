@@ -1,7 +1,7 @@
 <?php
 include '../php_script/connectDB.php';
 $campusid=$_GET['campusid'];
-if($campusid=="Any")
+if($campusid=="all")
 {
 	$sql="SELECT * FROM programme";
 $result = mysqli_query($conn,$sql);

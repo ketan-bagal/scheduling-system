@@ -1,8 +1,8 @@
 <?php
 $server="localhost";
-$loginaccount="root";
-$loginpasswd="";
-$dbname="booking";
+$loginaccount="orandcon_jimmy";
+$loginpasswd="P@ssw0rd";
+$dbname="orandcon_bookingsystem";
 $conn = mysqli_connect($server, $loginaccount, $loginpasswd, $dbname);
 if (mysqli_connect_errno())
 {

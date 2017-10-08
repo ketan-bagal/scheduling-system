@@ -41,6 +41,7 @@
 								$result = mysqli_query($conn,$sql);
 								echo "<select id='campusid' name='campusid'  onchange='changeOptions(this.value)'>";
 								echo "<option  value='' hidden selected>Select a campus</option>";
+								
 								while($row = mysqli_fetch_array($result)) {
 									$currentid = $row['campusid'];
 									echo "<option value='$currentid'"; if(isset($campusid)) {if($campusid==$currentid) {echo " selected";}} echo ">" .$row['campusname']."</option>";
@@ -53,7 +54,7 @@
 								$sql="SELECT * FROM programme";
 								$result = mysqli_query($conn,$sql);
 								echo "
-								<select name='programmeid' id='programmeid' onchange='setSemester(this.value);'>";
+								<select name='programmeid' id='programmeid' style='display:none;' onchange='setSemester(this.value);'>";
 								echo "<option value='' hidden selected>Select a programme</option>";
 								while($row = mysqli_fetch_array($result)) {
 									$currentbid = $row['programmeid'];
@@ -90,7 +91,7 @@
 								mysqli_close($conn);
 								?>
 							</fieldset>
-							<input type='submit' name='submit' value='submit'>
+							<input type='submit' name='submit' value='Submit'>
 
 						</form>
 
@@ -336,6 +337,7 @@ function changeOptions(campusid) {
         xmlhttp1 = new XMLHttpRequest();
         xmlhttp1.onreadystatechange = function() {
             if (xmlhttp1.readyState == 4 && xmlhttp1.status == 200) {
+				document.getElementById("programmeid").style.display = "inline";
                 document.getElementById("programmeid").innerHTML = xmlhttp1.responseText;
             }
         }

@@ -57,7 +57,7 @@
 								<input type="text" name="credits" value="" placeholder="Credits">
 							</fieldset>
 
-							<input type='submit' name='submit' value='submit'>
+							<input type='submit' name='submit' value='Submit'>
 
 						</form>
 					</div>

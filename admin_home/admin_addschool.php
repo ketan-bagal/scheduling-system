@@ -36,7 +36,7 @@
 							<fieldset>
 								<input type="text" name="schoolname" placeholder="School name" value="">
 							</fieldset>
-							<input type='submit' name='submit' value='submit'>
+							<input type='submit' name='submit' value='Submit'>
 						</form>
 					</div>
 				</div>
