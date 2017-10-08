@@ -27,7 +27,7 @@
 		echo "<li><div class='dropdown'>
 		<a href='../admin_home/admin_edittutor.php' class='hvr-back-pulse'>Tutor</a>
 		<div class='dropdown-content'>
-		<a href='../admin_home/admin_edittutorcorhortcourse.php' class='hvr-back-pulse'><span class='dropbtn'>Associate Tutor with Course</span></a>
+		<a href='../admin_home/admin_edittutorcorhortcourse.php' class='hvr-back-pulse'><span class='dropbtn'>Tutor <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Course</span></a>
 		<div>
 		</div></li>";
 		echo "<li><a href='../admin_home/admin_editschool.php' class='hvr-back-pulse'>School</a></li>";
@@ -37,8 +37,8 @@
   <div class='dropdown-content'>
 		<a href='../admin_home/admin_editprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Programme</span></a>
 		<a href='../admin_home/admin_editcourse.php' class='hvr-back-pulse'><span class='dropbtn'>Course</span></a>
-		<a href='../admin_home/admin_editcampusprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Associate Programme with Campus</span></a>
-		<a href='../admin_home/admin_editcourseprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Associate Programme with Course</span></a>
+		<a href='../admin_home/admin_editcampusprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Campus</span></a>
+		<a href='../admin_home/admin_editcourseprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Course</span></a>
   </div>
 </div></li>";
 		/*echo "<li><a href='../admin_home/admin_editprogramme.php' class='hvr-back-pulse'>Programme</a></li>";
@@ -61,8 +61,8 @@
 		echo "<ul>";
 		echo "<li>Report</li>";
 		echo "<li><a href='../admin_home/admin_viewreport_tutor.php' class='hvr-back-pulse'>Tutor</a></li>";
-		echo "<li><a href='../admin_home/admin_viewreport_room.php' class='hvr-back-pulse'>Room</a></li>";
-		echo "<li><a href='../admin_home/admin_view_recurring_view.php?submit=1' class='hvr-back-pulse'>Booking</a></li>";
+		//echo "<li><a href='../admin_home/admin_viewreport_room.php' class='hvr-back-pulse'>Room</a></li>";
+		echo "<li><a href='../admin_home/admin_view_recurring_view.php?submit=1' class='hvr-back-pulse'>Room</a></li>";
 		//echo "<li><a href='../admin_home/admin_viewganttchart.php' class='hvr-back-pulse'>Ganttchart</a></li>";
 		}
 		elseif($_SESSION["usertype"]==0)
