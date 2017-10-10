@@ -955,17 +955,6 @@ body {
 	font-weight:lighter;
 	font-size:25px;
 }
-#booking table td{
-	width:100px;
-}
-#booking table{
-	width:700px;
-}
-#booking table p
-{
-	margin:0;
-	padding:0;
-}
 
 a.selected {
   background-color:#1F75CC;
@@ -1063,14 +1052,15 @@ label {
     color: white;
 }
 
-
-
-
+.btn_delete{
+  display: none;
+  position: absolute;
+  left: 350px;
+  margin-top: -6px;
+}
+.btn_delete_two{
+  display: none;
+}
 table{
  border: none !important;
-}
-.button_delete{
-	position: relative;
-	left: 10%;
-	display: none;
 }

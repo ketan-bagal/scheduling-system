@@ -1,17 +1,17 @@
-.tt {
-
+.ttb {
+	background-color: #F3C7DE;
 }
 
 .tt-content {
-
-    font: 12px Arial, Helvetica;
+	color: black;
+    font: 14px Arial, Helvetica;
     text-align: center;
     border-color: #aaa #555 #555 #aaa;
     border-style: solid;
     border-width: 1px;
    z-index:10;display:none; padding:14px 20px;
-    margin-top:-30px; margin-left:28px;
-    width:300px; line-height:16px;
+    margin-top:-51px; margin-left:38px;
+    width:200px; line-height:16px;
     background-color: #fff;
     background-image: linear-gradient(rgba(0,0,0,.1), rgba(255,255,255,0));
     box-shadow: 1px 1px 0 #555,
@@ -23,6 +23,9 @@
 
 .tt:hover .tt-content{
     display:inline; position:absolute;
+}
+.tt:hover {
+	background-color: #E47D93;
 }
 .collapse:hover {
 background-color:red; 
