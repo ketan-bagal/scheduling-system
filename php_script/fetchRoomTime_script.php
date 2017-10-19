@@ -68,6 +68,8 @@ if($result)
 	$avTime;
 $ct=0;
 $count=0;
+$tempTime;
+$newTime;
 if(count($rooms)>0)
 {
 		foreach($rooms as $key=>$val){
@@ -123,7 +125,9 @@ if(count($rooms)>0)
 						}
 						if($count==$classDuration)
 						{
-							$avTime = $time[$i]." - ".$time[$j];
+							$tempTime = strtotime($time[$j]) + 60*60;
+							$newTime = date('H:i', $tempTime);
+							$avTime = $time[$i]." - ".$newTime;
 						}
 					}
 				}

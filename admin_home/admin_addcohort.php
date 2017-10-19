@@ -464,6 +464,9 @@ function caculateSummaryTotal()
 }
 
 function calculateProjectedEnddate(startdate) {
+	var def_startdate = document.getElementById('submit_startdate').value;
+		$('#start_semester1').val(def_startdate);
+		$('#start_semester1').attr('readonly', 'true');
 	document.getElementById('view_available_slot').style.display="inline";
 	var programmeDur = document.getElementById("programmedura").value;
 	var sd = new Date(startdate);
