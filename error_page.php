@@ -13,7 +13,7 @@
 <body>
 <div id='container'>
 	<header>
-	<h1>Your session has expired!</h1>
+	<h3>You are either not logged in or your session has experied. Please login to continue.</h3>
 	</header><!--header-->
 	<div id="logoutbutton">
 		<?php 

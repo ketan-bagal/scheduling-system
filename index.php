@@ -13,7 +13,7 @@
   </head>
   <body>
 	<div id="header_elements">
-	<div id="nzseLogo"><img src="pic/logo.png"></div>
+	<div id="nzseLogo"><img src="pic/logo.png" id="logo"></div>
 	</div>
     <div class="wrapper">
 	<div class="container"><br />
