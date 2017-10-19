@@ -76,7 +76,7 @@ include '../php_script/connectDB.php';
 				$did = json_encode($row['schoolid']);
 				echo "<tr value='$schoolid' class='data'>";
 				//echo "<td> <!--<a href='./admin_addschool.php?edit=$schoolid'><img src='../pic/edit.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-        echo "<td  >" . $row['name']."<img  onclick='confirmAction (\"$schoolid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
+        echo "<td  >" . $row['name']."<img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$schoolid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "</tr>";
 			}
 		}

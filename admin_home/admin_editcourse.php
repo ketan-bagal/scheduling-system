@@ -79,7 +79,7 @@ include '../php_script/connectDB.php';
 				$did = json_encode($row['courseid']);
 				echo "<tr value='$courseid' class='data'>";
 				//echo "<td><a href='./admin_addcourse.php?edit=$courseid'><img src='../pic/edit.png' /></a> <!--<a href='./admin_addcourse.php?copy=$courseid'><img src='../pic/copy.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-				echo "<td>" . $row['name'] ."</td>";
+				echo "<td>" . $row['name'] ."<img style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$tutorid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td>" . $row['programmename'] ."</td>";
         echo "<td>" . $row['credits'] ."</td>";
         echo "<td>" . $row['duration'] ."&nbsp week(s)</td>";
@@ -93,7 +93,7 @@ include '../php_script/connectDB.php';
 </div>
 </div>
 		</div>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>

@@ -22,7 +22,7 @@
 			<?php include '../php_includes/header.php'; ?>
 			<?php include '../php_includes/nav.php'; ?>
 			<div class="col-6 col-m-9 content">
-				<h1>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Course	</h1>
+				<h1>Campus <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Prog.	</h1>
 
 <div id='error'>
 		<?php
@@ -60,25 +60,34 @@ include '../php_script/connectDB.php';
 ?>
 <?php
 	include '../php_script/connectDB.php';
-	$result = "SELECT campus_programme.cpid, programme.name AS programmename, campus.campusname FROM campus_programme INNER JOIN programme ON campus_programme.programmeid=programme.programmeid INNER JOIN campus ON campus_programme.campusid=campus.campusid";
-		echo "<table id='student_resit' class='border'>
-		<thead><tr>
-
-		<th>Campus</th>
-		<th>Programme</th>
+		$result = "SELECT campus.campusname, campus.campusid, count(*) as 'count' FROM campus_programme, campus WHERE campus_programme.campusid=campus.campusid GROUP BY campus_programme.campusid";
+	//$result2 = "SELECT campus_programme.cpid, programme.name AS programmename, campus.campusname FROM campus_programme INNER JOIN programme ON campus_programme.programmeid=programme.programmeid INNER JOIN campus ON campus_programme.campusid=campus.campusid";
+		echo "<table id='student_resit' name='tableform' style='width:100%'>
+		
+		<tr>
+			<th style='width:30%'>Campus</th>
+			<th style='width:70%'>Programme</th>
 		</tr>
-		</thead>";
+		";
 		if ($runquery = $conn->query($result))
 		{
 			while($row = $runquery->fetch_assoc())
 			{
-				$cpid = $row['cpid'];
-				$did = json_encode($row['cpid']);
-				echo "<tr value='$cpid' class='data'>";
+				
+				echo "<tr value='".$row['campusid']."' class='data'>";
 				//echo "<td><a href='./admin_addcampusprogramme.php?edit=$cpid'><img src='../pic/edit.png' /></a> <!--<a href='./admin_addcampusprogramme.php?copy=$cpid'><img src='../pic/copy.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-				echo "<td>" . $row['campusname'] ."</td>";
-        echo "<td>" . $row['programmename'] ."</td>";
+				echo "<td style='padding:7px' rowspan=".($row['count']+1).">" . $row['campusname'] ."</td>";
 				echo "</tr>";
+				$result2 = "SELECT campus_programme.cpid, programme.name AS programmename FROM campus_programme, programme WHERE campus_programme.campusid ='".$row['campusid']."' AND campus_programme.programmeid=programme.programmeid";
+				$runquery2 = $conn->query($result2);
+				while($row2 = $runquery2->fetch_assoc())
+				{
+					$cpid = $row2['cpid'];
+					$did = json_encode($row2['cpid']);
+					echo"	<tr  value='".$row2['programmename']."'>";
+					echo "<td style='padding:7px' class='data_two'  value='".$cpid."'>" . $row2['programmename'] ."</td>";
+					echo "</tr>";
+				}
 			}
 		}
 		echo "</table>";
@@ -88,9 +97,23 @@ include '../php_script/connectDB.php';
 </div>
 		</div>
 
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>
 </div>
+<script>
+	$('tr .data_two').each(function() {
+	var id = $(this).attr('value');
+	var table = document.getElementById('current_table').value;
+  var pkname = "cpid";
+	$(this).append('<a style=\'width:auto; position:relative; left:10%;\' href=javascript:confirmAction("'+id+'","'+table+'","'+pkname+'")><button class="btn_delete_two" >delete</button></a>');
+});
+$('tr .data_two').mouseover(function() {
+	$(this).find('.btn_delete_two').css('display', 'inline');
+}).mouseout(function() {
+
+	$(this).find('.btn_delete_two').css('display', 'none');
+});
+</script>
 </body>
 </html>

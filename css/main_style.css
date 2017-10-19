@@ -145,6 +145,10 @@ position: relative;
 			margin-top:30px;
 			clear:both;
 			}
+			#logo{
+			display: block;
+			margin: 0 auto;
+			}
 			#contact,#menu {text-align: center;
 			}
 			#logout_button
@@ -663,6 +667,7 @@ a {
 .content{
 	height:0%;
 	margin-left:0%;
+	margin-bottom: 100px;
 }
 .content h1 {
 	font-family: Arial, Helvetica, Verdana, Sans-serif;
@@ -754,7 +759,7 @@ a {
     font-size: 12px;
     margin-top: 20px;
 
-	position:relative;
+	position:fixed;
   bottom: 0px;
 
 	clear:both;
@@ -1052,12 +1057,7 @@ label {
     color: white;
 }
 
-.btn_delete{
-  display: none;
-  position: absolute;
-  left: 350px;
-  margin-top: -6px;
-}
+
 .btn_delete_two{
   display: none;
 }

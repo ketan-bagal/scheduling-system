@@ -114,7 +114,7 @@ include '../php_script/connectDB.php';
 				echo "<tr value='$userid' class='data'>";
 				//echo "<td><a href='./admin_adduser.php?edit=$userid'><img src='../pic/edit.png' /></a> <a href='./admin_adduser.php?copy=$userid'><img src='../pic/copy.png' /></a> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a> <a onclick='resetAction($did)'><img src='../pic/reset.png' /></a></td>";
 
-				echo "<td>" . $userid . "<img  onclick='confirmAction (\"$userid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
+				echo "<td>" . $userid . "<img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$userid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td>" . $usertype ."</td>";
 				echo "<td>" . $row['email'] ."</td>";
 

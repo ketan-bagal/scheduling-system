@@ -366,7 +366,7 @@ function changeOptions(campusid) {
 					}
 					}
 
-				echo "<img  onclick='confirmAction (\"$roomid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
+				echo "<img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$roomid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td >" . $value['buildingname']."</td>";
 				echo "<td >" . $value['campusname']."</td>";
 				echo "<td>" . $value['capacity'] ."\n";

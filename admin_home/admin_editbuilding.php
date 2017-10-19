@@ -88,7 +88,7 @@ if($cnt >= 1)
 				$did = json_encode($row['buildingid']);
 				echo "<tr value='$buildingid' class='data'>";
 				//echo "<td><a href='./admin_addbuilding.php?edit=$buildingid'><img src='../pic/edit.png' /></a> <a href='./admin_addbuilding.php?copy=$buildingid'><img src='../pic/copy.png' /></a> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-				echo "<td contenteditable=\"true\" data-old-value='".$row['buildingname']."' onBlur=\"saveInlineEdit(this,'buildingname','".$row['buildingid']."','building')\" onClick=\"highlightEdit(this);\">".$row['buildingname']."</td>";
+				echo "<td >".$row['buildingname']."<img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$roomid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td >".$row['campusname']."</td>";
 				echo "</tr>";
 			}
@@ -99,7 +99,7 @@ if($cnt >= 1)
 </div>
 </div>
 		</div>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>

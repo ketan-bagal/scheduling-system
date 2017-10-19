@@ -105,10 +105,11 @@ else {
 			while($row = $runquery->fetch_assoc())
 			{
 				$programmeid = $row['programmeid'];
+				$onclick= "window.open('./admin_editcourseprogramme.php?programmeid=".$programmeid."')";
 				$did = json_encode($row['programmeid']);
 				echo "<tr value='$programmeid' class='data'>";
 				//echo "<td><a href='./admin_addprogramme.php?edit=$programmeid'><img src='../pic/edit.png' /></a> <!-- <a href='./admin_addprogramme.php?copy=$programmeid'><img src='../pic/copy.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-				echo "<td>" . $row['name'] ."</td>";
+				echo "<td><a href='#' onclick=".$onclick.">" . $row['name'] ."</a><img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$userid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td>" . $row['schoolname'] ."</td>";
         echo "<td>" . $row['credits'] ."</td>";
 
@@ -135,7 +136,7 @@ else {
 </div>
 </div>
 		</div>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>

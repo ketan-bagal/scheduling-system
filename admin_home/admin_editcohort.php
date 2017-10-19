@@ -15,6 +15,11 @@
 	<?php $pkname= "cohortid";?>
 	<?php include '../php_includes/head_elements.php'; ?>
 	<?php include '../php_includes/alertbox.php'; ?>
+
+	<script src="../js/jspdf.min.js"></script>
+	<script src="../js/html2canvas.min.js"></script>
+	<script src="../js/html2pdf.js"></script>
+	
 </head>
 <body>
 	<div id="tables_refresh">
@@ -84,12 +89,13 @@ echo "<div class=''>
 		<input type='hidden' name='csvyear' value='".$year."'>
 		<input type='submit' name='' value='Download'>
 	</form>
+	<button id='download-pdf'>Generate PDF</button>
 </div>";
 
 
-echo '<br /><div class="tables" style="overflow-x:scroll; overflow-y:scroll;  width:100%; height: 400px; ">';
+echo '<br /><div class="tables" style="overflow-x:scroll; overflow-y:scroll;  width:297mm; height: 400px; ">';
 
-
+echo '<div id="element-to-print">';
 
 echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
 
@@ -102,10 +108,11 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
   {
     while($row = $runquery->fetch_assoc())
     {
+
       echo "<center><h1>".$row['campusname']."</h1></center>";
       $result2 = "SELECT campus_programme.*, programme.name AS programmename, programme.semesters FROM campus_programme, programme, cohort WHERE  cohort.programmeid=programme.programmeid AND cohort.programmeid=campus_programme.programmeid AND campus_programme.campusid='".$row['campusid']."' GROUP BY programmeid";
       $runquery2 = $conn->query($result2);
-
+      $countTable=0;
       while($row2 = $runquery2->fetch_assoc())
       {
 		    echo  "<center><h3>".$row2['programmename']."</h3></center>";
@@ -114,7 +121,7 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
 				//$result3 = "SELECT a.*,r.roomname, semester.startdate AS cohortstartdate, sub.enddate AS cohortenddate FROM building b, room r, campus c, cohort a, semester INNER JOIN (SELECT semester.enddate,semester.cohortid FROM semester, cohort WHERE cohort.cohortid = semester.cohortid AND semester.semestername='".$row2['semesters']."') sub ON sub.cohortid = semester.cohortid WHERE a.roomid=r.roomid AND b.buildingid=r.buildingid AND b.campusid=c.campusid AND semester.cohortid=a.cohortid AND semester.semestername='1' AND a.programmeid='".$row2['programmeid']."'";
       //  $result3 = "SELECT cohort.*,r.roomname, semester.startdate AS cohortstartdate, semester.enddate AS cohortenddate FROM building b, room r, campus c, cohort, semester WHERE cohort.roomid=r.roomid AND b.buildingid=r.buildingid AND b.campusid=c.campusid AND semester.cohortid=cohort.cohortid AND semester.semestername='semester1' OR semester.semestername='semester'".$row2['semesters']."' AND cohort.programmeid='".$row2['programmeid']."'";
 			//$result3 = "SELECT cohort.*,r.roomname, semester.startdate AS cohortstartdate, semester.enddate AS cohortenddate FROM building b, room r, campus c, cohort, semester WHERE cohort.roomid=r.roomid AND b.buildingid=r.buildingid AND b.campusid=c.campusid AND semester.cohortid=cohort.cohortid AND semester.semestername='semester1' OR semester.semestername='semester".$row2['semesters']."' AND cohort.programmeid='".$row2['programmeid']."'";
-        echo "<table id='student_resit' class='border'>
+        echo "<table>
     		<thead><tr>
 
         <th>Cohort</th>";
@@ -147,7 +154,7 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
           		$did = json_encode($row3['cohortid']);
           		echo "<tr value='$cohortid' class='data'>";
           		//echo "<td><a href='./admin_addcohort.php?edit=$cohortid'><img src='../pic/edit.png' /></a> <!--<a href='./admin_addcohort.php?copy=$cohortid'><img src='../pic/copy.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
-          		echo "<td>" . $row3['cohortid'] ."</td>";
+          		echo "<td>" . $row3['cohortid'] ."<img style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$tutorid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 
 
 
@@ -168,9 +175,14 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
 						}
         	}
         	echo "</table>";
+        	$countTable++;
+        	if($countTable%2==0&&$countTable>1){
+      			echo '<div class="html2pdf__page-break"></div>';		
+        	}
       	}
-		}
-  }
+      	echo '<div class="html2pdf__page-break"></div>';
+	}
+ }
 
 
 
@@ -208,8 +220,22 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
 		?>
 </div>
 </div>
+</div>
 		</div>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
+<script>
+		$('#download-pdf').click(function() {
+		var element = document.getElementById('element-to-print');
+		html2pdf(element,{
+  margin:       1,
+  filename:     'scehdule.pdf',
+  image:        { type: 'jpeg', quality: 0.98 },
+  html2canvas:  { dpi: 192, letterRendering: true },
+  jsPDF:        { unit: 'in', format: 'a4', orientation: 'l' }
+});
+	 });
+</script>
+
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>
 </div>

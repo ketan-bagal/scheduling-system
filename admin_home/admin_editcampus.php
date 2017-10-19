@@ -93,8 +93,8 @@ if($cnt >= 1)
 				echo "<tr value='$campusid' class='data'>";
 				//echo "<td><a href='./admin_addcampus.php?edit=$campusid'><img src='../pic/edit.png' /></a> <a href='./admin_addcampus.php?copy=$campusid'><img src='../pic/copy.png' /></a> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
 
-				echo "<td contenteditable=\"true\" data-old-value='".$row['campusname']."' onBlur=\"saveInlineEdit(this,'campusname','".$row['campusid']."','campus')\" onClick=\"highlightEdit(this);\">" . $row['campusname']."</td>";
-				echo "<td contenteditable=\"true\" data-old-value='".$row['address']."' onBlur=\"saveInlineEdit(this,'address','".$row['campusid']."','campus')\" onClick=\"highlightEdit(this);\">" . $row['address'] ."</td>";
+				echo "<td >" . $row['campusname']."<img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$roomid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
+				echo "<td >" . $row['address'] ."</td>";
 
 				echo "</tr>";
 			}
@@ -106,7 +106,7 @@ if($cnt >= 1)
 </div>
 </div>
 </div>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>

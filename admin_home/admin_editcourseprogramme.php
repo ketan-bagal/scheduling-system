@@ -89,13 +89,13 @@
 					$runSemester= mysqli_query($conn,$querySemester);
 					while ($rowSemester = mysqli_fetch_array($runSemester)) {
 						echo "<tr class='data' value='".$rowSemester['semester']."'>
-											<td rowspan=".($rowSemester['count']+1)." > Semester ".$rowSemester['semester']."</td>
+											<td style='padding:7px' rowspan=".($rowSemester['count']+1)." > Semester ".$rowSemester['semester']."<img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$userid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>
 											</tr>";
 											$queryCourses= "SELECT course.name, programme_course.pcid FROM course, programme_course WHERE course.courseid = programme_course.courseid and programme_course.semester= '".$rowSemester['semester']."' ORDER BY programme_course.priority ASC ";
 											$runCourses= mysqli_query($conn,$queryCourses);
 											while ($rowCourses = mysqli_fetch_array($runCourses)) {
-												echo"	<tr class='data_two' value='".$rowCourses['pcid']."'>
-																	<td >".$rowCourses['name']."</td>
+												echo"	<tr  value='".$rowCourses['pcid']."'>
+																	<td style='padding:7px' class='data_two' value='".$rowCourses['pcid']."'>".$rowCourses['name']."</td>
 																	</tr>	";
 											}
 
@@ -158,13 +158,13 @@ function changeOptions(campusid) {
 		
     }
 
-$('tr.data_two').each(function() {
+$('tr .data_two').each(function() {
 	var id = $(this).attr('value');
 	var table = document.getElementById('current_table').value;
   var pkname = "pcid";
-	$(this).append('<a href=javascript:confirmAction("'+id+'","'+table+'","'+pkname+'")><button class="btn_delete_two" >delete</button></a>');
+	$(this).append('<a style=\'width:auto; position:relative; left:10%;\' href=javascript:confirmAction("'+id+'","'+table+'","'+pkname+'")><button class="btn_delete_two" >delete</button></a>');
 });
-$('tr.data_two').mouseover(function() {
+$('tr .data_two').mouseover(function() {
 	$(this).find('.btn_delete_two').css('display', 'inline');
 }).mouseout(function() {
 
@@ -172,7 +172,7 @@ $('tr.data_two').mouseover(function() {
 });
 
 </script>
-<script src="../js/delete_record.js"></script>
+<script src="../js/delete_row.js"></script>
 <br><br><br><br><br>
 <?php include '../php_includes/footer.php';?>
 </div>

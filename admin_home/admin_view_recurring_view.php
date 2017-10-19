@@ -2,10 +2,16 @@
 <?php
 if(isset($_GET['submit']))
 {
-	
+	if($_GET['submit']==1)
+	{
 	$_SESSION["startdate"] = new DateTime();
 	$_SESSION["startdate"] = $_SESSION["startdate"]->format('Y-m-d');
-
+	}
+	else
+	{
+		$_SESSION["startdate"] = $_GET['submit'];
+	}
+	
 	$_SESSION["campusid"] = "Any";
 	
 	unset($_GET["submit"]);
@@ -132,7 +138,7 @@ include '../php_script/connectDB.php';
 $sql="SELECT * FROM campus";
 $result = mysqli_query($conn,$sql);
 echo "<label for='campusid'>Campus: </label>
-<select id='campusid' name='campusid' onchange='search(this.value,0)'>";
+<select style='margin=10px;' id='campusid' name='campusid' onchange='search(this.value,0)'>";
 echo "<option>Any</option>";
 while($row = mysqli_fetch_array($result)) {
 	$campusid = $row['campusid'];
@@ -141,6 +147,7 @@ while($row = mysqli_fetch_array($result)) {
 	echo "<option value='".$campusid."'"; if(isset($_SESSION['campusid'])) {if($_SESSION['campusid']==$campusid) {echo " selected";}} echo ">" .$row['campusname']."</option>";
 }
 echo "</select>";
+echo "<br /><br />";
 mysqli_close($conn);
 ?>
 
@@ -149,7 +156,7 @@ include '../php_script/connectDB.php';
 $sql="SELECT * FROM building";
 $result = mysqli_query($conn,$sql);
 echo "<label for='buildingid'>Building: </label>
-<select name='buildingid' id='buildingid' onchange='search(this.value,1)'>";
+<select style='margin=10px;' name='buildingid' id='buildingid' onchange='search(this.value,1)'>";
 echo "<option>Select a building</option>";
 while($row = mysqli_fetch_array($result)) {
 	$buildingid = $row['buildingid'];
@@ -157,9 +164,13 @@ while($row = mysqli_fetch_array($result)) {
 	echo "<option value='".$buildingid."'"; if(isset($_SESSION['buildingid'])) {if($_SESSION['buildingid']==$buildingid) {echo " selected";}} echo ">" .$row['buildingname']."</option>";
 }
 echo "</select>";
+echo "<br /><br /><br />";
 mysqli_close($conn);
 ?>
-
+<div class="messagepop pop">
+		<p><input type="text" value="" name="scroll" id="scroll"/></p>
+        <p><input type="button" value="Confirm" id="message_submit"/> or <a class="close" href="/">Cancel</a></p>
+</div>
 </div><!-- end of form1 -->
 
 <script src="../js/jquery.js"></script>
@@ -288,10 +299,35 @@ if(($runquery = $conn->query($result)) )
  
 var target;
 
+/*  function deselect(e) {
+  $('.pop').slideFadeToggle(function() {
+    e.removeClass('selected');
+  });    
+}
+ 
+ $(function() {
+  $('.ttnb').on('click', function() {
+    if($(this).hasClass('selected')) {
+      deselect($(this));               
+    } else {
+      $(this).addClass('selected');
+      $('.pop').slideFadeToggle();
+	  $('.pop').center();
+	  $('#scroll').val($(this).attr("data-supid"));
+    }
+    return false;
+  });
+
+  $('.close').on('click', function() {
+    deselect($('.ttnb'));
+    return false;
+  });
+}); 
+
 $.fn.slideFadeToggle = function(easing, callback) {
 	
   return this.animate({ opacity: 'toggle', height: 'toggle' }, 'fast', easing, callback);
-};
+}; */
 
 $(function() {
     // Stick the #nav to the top of the window
@@ -491,6 +527,11 @@ function createTable(startdate,enddate) {
 							
 						
 						}
+						else
+						{
+							td.className+=" ttnb";
+						}
+						
 						td.appendChild(tooltip);	
 						
 						dateVal = addDays(1,dateVal);
@@ -601,7 +642,9 @@ function optimizeSize() {
 			tds[i].style.minWidth="0";
 			tds[i].style.height="0";
 			tds[i].style.padding="0";
+			tds[i].style.fontSize="10px";
 		}
+		
 		icon.id = "small";
 	}
 	else
@@ -612,7 +655,9 @@ function optimizeSize() {
 			tds[i].style.minWidth="100px";
 			tds[i].style.height="50px";
 			tds[i].style.padding="8px";
+			tds[i].style.fontSize="14px";
 		}
+		
 		icon.id = "big";
 	}
 }
