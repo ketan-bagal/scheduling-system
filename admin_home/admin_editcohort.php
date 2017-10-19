@@ -110,7 +110,7 @@ echo "<h1><center>".$year ."&nbspSCHEDULE </h1></center>";
     {
 
       echo "<center><h1>".$row['campusname']."</h1></center>";
-      $result2 = "SELECT campus_programme.*, programme.name AS programmename, programme.semesters FROM campus_programme, programme, cohort WHERE  cohort.programmeid=programme.programmeid AND cohort.programmeid=campus_programme.programmeid AND campus_programme.campusid='".$row['campusid']."' GROUP BY programmeid";
+      $result2 = "SELECT campus_programme.*, programme.name AS programmename, programme.semesters FROM campus_programme, programme, cohort, room, building WHERE cohort.roomid=room.roomid AND room.buildingid = building.buildingid AND building.campusid = campus_programme.campusid AND cohort.programmeid=programme.programmeid AND cohort.programmeid=campus_programme.programmeid AND campus_programme.campusid='".$row['campusid']."' GROUP BY programmeid";
       $runquery2 = $conn->query($result2);
       $countTable=0;
       while($row2 = $runquery2->fetch_assoc())

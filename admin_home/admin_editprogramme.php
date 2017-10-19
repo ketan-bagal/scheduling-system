@@ -93,11 +93,13 @@ else {
 		<thead>
 		<tr>
 
-		<th width=\"40%\">Programme</th>
+		<th style=\"width:35%;\">Programme</th>
 		<th>School</th>
     <th>Credits</th>
     <th>Duration</th>
+    <th>Class Duration</th>
 		<th>Semesters</th>
+    	<th>Level</th>
 		</tr>
 		</thead>";
 		if ($runquery = $conn->query($result))
@@ -111,22 +113,24 @@ else {
 				//echo "<td><a href='./admin_addprogramme.php?edit=$programmeid'><img src='../pic/edit.png' /></a> <!-- <a href='./admin_addprogramme.php?copy=$programmeid'><img src='../pic/copy.png' /></a>--> <a href='javascript:confirmAction($did)'><img src='../pic/delete.png' /></a></td>";
 				echo "<td><a href='#' onclick=".$onclick.">" . $row['name'] ."</a><img  style='display:none; position:relative; left:10%;' onclick='confirmAction (\"$userid\",\"$DBtable\",\"$pkname\");' class = 'button_delete' height='20px' width='20px' src='../pic/delete.png' /></td>";
 				echo "<td>" . $row['schoolname'] ."</td>";
-        echo "<td>" . $row['credits'] ."</td>";
+		        echo "<td>" . $row['credits'] ."</td>";
 
-        if ($row['duration'] >= 52) {
-            $duration = $row['duration'];
+		        if ($row['duration'] >= 52) {
+		            $duration = $row['duration'];
 
-            if ($duration % 26 == 0) {
-              $year = ($duration / 26) * 0.5;
-                echo "<td>" . $year ."&nbsp year(s)</td>";
-            }else {
+		            if ($duration % 26 == 0) {
+		              $year = ($duration / 26) * 0.5;
+		                echo "<td>" . $year ."&nbsp year(s)</td>";
+		            }else {
 
-                echo "<td>" . (int)($duration / 52) ."&nbsp year(s) &nbsp".($duration % 52)."&nbsp week(s)</td>";
-            }
-        }else {
-            echo "<td>" . $row['duration'] ."&nbsp weeks</td>";
-        }
+		                echo "<td>" . (int)($duration / 52) ."&nbsp year(s) &nbsp".($duration % 52)."&nbsp week(s)</td>";
+		            }
+		        }else {
+		            echo "<td>" . $row['duration'] ."&nbsp weeks</td>";
+		        }
+		        echo "<td>" . $row['classDuration'] . "</td>";
 				echo "<td>" . $row['semesters'] ."</td>";
+				echo "<td>" . $row['level'] ."</td>";
 				echo "</tr>";
 			}
 		}
