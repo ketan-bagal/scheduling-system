@@ -63,33 +63,33 @@
 								echo "</select>";
 								mysqli_close($conn);
 								?>
-								<label> Programme duration(weeks):</label>
-								<input id="programmedura" name="duration" value="0" disabled>
+								 <label style="display:none;"> Programme duration(weeks):</label>
+								<input id="programmedura" name="duration" value="0" style="display:none;" disabled> 
 
 								<label for="campusname" >Start Date:</label>
-								<input type="date" name="startdate" id="submit_startdate" onchange="myFunction(this.value)">
-								<button type="button" name="button" id="view_available_slot" onclick="document.getElementById('myPopup').style.display='initial'" hidden>view available slot</button>
-								<label for="campusname" >End Date:</label>
-								<input type="date" name="enddate" onchange="calculdura();" id="submit_enddate" readonly>
-								<label for="campusname" >Duration(weeks):</label>
-								<input id="duration" name="duration" value="0" disabled>
-								<label for="campusname" >Start 	Time:</label>
-								<input type="time" name="starttime" id="submit_starttime" readonly>
-								<label for="campusname" >End Time:</label>
-								<input type="time" name="endtime" id="submit_endtime" readonly>
+								<input type="date" name="startdate" id="submit_startdate" onchange="calculateProjectedEnddate(this.value);fetchRoomTime(this.value);" readonly>
+								<label for="campusname" style="display:none;">End Date:</label>
+								<input type="date" name="enddate" onchange="calculdura();" style="display:none;" id="submit_enddate">
+								<label for="campusname" style="display:none;">Duration(weeks):</label>
+								<input id="duration" name="duration" value="0" style="display:none;" disabled>
+								<label for="campusname" style="display:none;">Start 	Time:</label>
+								<input type="time" name="starttime" id="submit_starttime" style="display:none;" readonly>
+								<label for="campusname" style="display:none;">End Time:</label>
+								<input type="time" name="endtime" id="submit_endtime" style="display:none;" readonly>
 
 								<div id="semesters">
 								</div>
-								<?php
-								include '../php_script/connectDB.php';
+								<button type="button" name="button" id="view_available_slot" onclick="document.getElementById('myPopup').style.display='initial';myFunction();" hidden>view available slot</button>
+								 <?php
+								 include '../php_script/connectDB.php';
 								$sql="SELECT * FROM room";
 								$result = mysqli_query($conn,$sql);
 								echo "
-								<select name='roomid' id='roomid'>";
+								<select style='display:none;' name='roomid' id='roomid'>";
 								echo "<option hidden selected>Select a room</option>";
 								echo "</select>";
-								mysqli_close($conn);
-								?>
+								mysqli_close($conn); 
+								?> 
 							</fieldset>
 							<input type='submit' name='submit' value='Submit'>
 
@@ -97,10 +97,22 @@
 
 					</div>
 				</div>
-				<div id="cohort_summary_button" style="position:fixed; bottom:0; right:0;overflow:auto;margin:15% auto;width:10%; padding:10px;z-index:8;">
+				
+				<div id="room_summary_button" style="position:fixed; bottom:400px; right:0;overflow:auto;margin:15% auto;width:10%; padding:10px;z-index:8;">
+				<span onclick="document.getElementById('room_summary').style.display='block'">open</span>
+				</div>
+				<div id="room_summary" style="position:fixed; bottom:400px; right:0; width:30%; height:45%; overflow:auto; z-index:9;";>
+				<div id="room_summary_content" style="background-color: #fefefe; margin:15% auto; padding:10px; border: 1px solid #888; width:80%;">
+				<span style="float:right; z-index:8;" onclick="document.getElementById('room_summary').style.display='none'">close</span>
+					<h3 id="projectedEnddate">Projected Enddate &emsp;&emsp;</h3>
+					<h3 id="ee"></h3>
+				</div>
+				</div>
+				
+				<div id="cohort_summary_button" style="position:fixed; bottom:10px; right:0;overflow:auto;margin:15% auto;width:10%; padding:10px;z-index:8;">
 				<span onclick="document.getElementById('cohort_summary').style.display='block'">open</span>
 				</div>
-				<div id="cohort_summary" style="position:fixed; bottom:0; right:0; width:30%; height:45%; overflow:auto; z-index:9;";>
+				<div id="cohort_summary" style="position:fixed; bottom:10px; right:0; width:30%; height:45%; overflow:auto; z-index:9;";>
 				<div id="cohort_summary_content" style="background-color: #fefefe; margin:15% auto; padding:10px; border: 1px solid #888; width:80%;">
 				<span style="float:right; z-index:8;" onclick="document.getElementById('cohort_summary').style.display='none'">close</span>
 					<h3 id="summary_s_1">Sem 1 &emsp;&emsp;</h3>
@@ -220,7 +232,8 @@ function choiceroom(selectedtime) {
 }
 
 
-function myFunction(startdate) {
+function myFunction() {
+	var startdate = document.getElementById('submit_startdate').value;
 	var campusid = document.getElementById('campusid').value;
 	var programmeid = document.getElementById('programmeid').value;
 
@@ -261,6 +274,8 @@ window.onclick = function(event) {
 }
 
 function setSemester(programmeid){
+	if(programmeid!="Select a programme")
+	{
 	    xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
             if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -280,6 +295,15 @@ function setSemester(programmeid){
         }
         xmlhttp2.open("GET","../php_script/checkTime.php?programmeid="+programmeid,true);
         xmlhttp2.send();
+		
+		var startdate = document.getElementById("submit_startdate");
+		startdate.readOnly = false;
+	}
+	else
+	{
+		var startdate = document.getElementById("submit_startdate");
+		startdate.readOnly = true;
+	}
 }
 
 		
@@ -438,8 +462,69 @@ function caculateSummaryTotal()
 	
 	total.innerHTML = "Total &emsp;&emsp;"+num;
 }
-	
 
+function calculateProjectedEnddate(startdate) {
+	document.getElementById('view_available_slot').style.display="inline";
+	var programmeDur = document.getElementById("programmedura").value;
+	var sd = new Date(startdate);
+	var newDate = new Date(sd.setDate(sd.getDate()+(programmeDur*7)));
+	var formatted = newDate.getUTCFullYear() + '-' + padNumber(newDate.getUTCMonth() + 1) + '-' + padNumber(newDate.getUTCDate());
+	
+	 var pe = document.getElementById("projectedEnddate");
+	 pe.innerHTML = "Projected Enddate &emsp;&emsp;"+formatted;
+	 pe.value = formatted;
+}
+	
+function padNumber(number) {
+                var string  = '' + number;
+                string      = string.length < 2 ? '0' + string : string;
+                return string;
+            }
+			
+function fetchRoomTime(startdate) {
+	var e = document.getElementById("ee");
+	var campus = document.getElementById("campusid").value;
+	var enddate = document.getElementById("projectedEnddate").value;
+	var programme = document.getElementById("programmeid").value;
+	//e.innerHTML=campus+ " " + startdate + " " + enddate+ " " + programme;
+	
+	 var xml = "programmeid="+programme+"&startdate="+startdate+"&enddate="+enddate+"&campusid="+campus;
+ 	xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				var rooms = JSON.parse(xmlhttp.responseText); 
+			 	var parent = document.getElementById("room_summary_content");
+				var child;
+				
+				var cohortRooms = parent.childNodes;
+				if(cohortRooms)
+				{
+					for(var j = cohortRooms.length-1; j>=0; j--)
+					{
+						if((cohortRooms[j].className)&& (cohortRooms[j].className=="cohortRooms"))
+						{
+							cohortRooms[j].parentNode.removeChild(cohortRooms[j]);
+						}
+					}
+				}
+				for(var i in rooms)
+				{
+					child = document.createElement("h4");
+					 for(var j in rooms[i])
+					{
+						child.innerHTML+=rooms[i][j]+" ";
+					} 
+					//child.innerHTML = rooms[i]["name"] + " " + rooms[i]["19:00"];
+					//child.innerHTML = rooms[i]["name"] + " "+ rooms[i]["08:00"]+" " +rooms[i]["09:00"]+" " +rooms[i]["10:00"]+" " +rooms[i]["11:00"]+" " +rooms[i]["12:00"]+" " +rooms[i]["13:00"]+" " +rooms[i]["14:00"]+" " +rooms[i]["15:00"]+" " +rooms[i]["16:00"]+" " +rooms[i]["17:00"]+" " +rooms[i]["18:00"]+" " +rooms[i]["19:00"]+" " +rooms[i]["20:00"]+" " +rooms[i]["21:00"];
+					child.className = "cohortRooms";
+					parent.appendChild(child); 
+			 	}
+
+            }
+        }
+        xmlhttp.open("GET","../php_script/fetchRoomTime_script.php?"+xml,true);
+        xmlhttp.send();  
+}
 
 
 </script>
