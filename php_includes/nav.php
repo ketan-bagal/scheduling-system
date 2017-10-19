@@ -37,7 +37,7 @@
   <div class='dropdown-content'>
 		<a href='../admin_home/admin_editprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Programme</span></a>
 		<a href='../admin_home/admin_editcourse.php' class='hvr-back-pulse'><span class='dropbtn'>Course</span></a>
-		<a href='../admin_home/admin_editcampusprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Campus</span></a>
+		<a href='../admin_home/admin_editcampusprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Campus <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Prog. </span></a>
 		<a href='../admin_home/admin_editcourseprogramme.php' class='hvr-back-pulse'><span class='dropbtn'>Prog. <img src='../pic/link.png' alt='link' style='width:20px;height:20px;'> Course</span></a>
   </div>
 </div></li>";

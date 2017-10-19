@@ -21,7 +21,7 @@
 			<?php include '../php_includes/nav.php'; ?>
 			<div class="col-6 col-m-9 content">
 
-				<div class="container">
+				<div style="margin-top:50px;" class="container">
 				<!-- Responsive calendar - START -->
 					<div id = "calendar">
 					<div class="responsive-calendar">
